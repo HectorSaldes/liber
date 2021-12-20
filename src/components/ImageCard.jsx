@@ -1,6 +1,4 @@
 import React from "react";
-import Eye from "../assets/svg/eye.svg";
-import Trash from "../assets/svg/trash.svg";
 
 export default function ImageCard({
 	img,
@@ -68,7 +66,6 @@ export default function ImageCard({
 			<div className="self-center mr-3">
 				<a href={url} target="_blank" rel="noreferrer">
 					<button className="bg-yellow-400 p-2 rounded-full hover:bg-yellow-500">
-						<img src={Eye} className="w-6" alt="Ver" />
 					</button>
 				</a>
 				<p className="my-2" />
@@ -76,7 +73,6 @@ export default function ImageCard({
 					className="bg-red-500 p-2 rounded-full hover:bg-red-600"
 					// onClick={removeImage}
 				>
-					<img src={Trash} className="w-6" alt="Borrar" />
 				</button>
 			</div>
 		</div>
