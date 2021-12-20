@@ -4,8 +4,8 @@ import Trash from "../assets/svg/trash.svg";
 
 export default function ImageCard({
 	img,
-	Swal,
-	message,
+	// Swal,
+	// message,
 	myLocalStorage,
 	LocalStorageService,
 	setLiberImages,
@@ -14,30 +14,30 @@ export default function ImageCard({
 	const { height, width, type, url } = img.source;
 
 	const removeImage = () => {
-		Swal.fire({
-			title: "¿Quieres eliminar esta imagen?",
-			text: "No se puede revertir este cambio",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Si, eliminar!",
-			cancelButtonText: "No, guardar",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				if (LocalStorageService.deleteData(myLocalStorage, id)) {
-					message("success", "Imagen eliminada correctamente");
-					setLiberImages(
-						LocalStorageService.getAllData(myLocalStorage)
-					);
-				} else {
-					message(
-						"error",
-						"Ocurrío un error al eliminar la imagen localmente"
-					);
-				}
-			}
-		});
+		// Swal.fire({
+		// 	title: "¿Quieres eliminar esta imagen?",
+		// 	text: "No se puede revertir este cambio",
+		// 	icon: "warning",
+		// 	showCancelButton: true,
+		// 	confirmButtonColor: "#3085d6",
+		// 	cancelButtonColor: "#d33",
+		// 	confirmButtonText: "Si, eliminar!",
+		// 	cancelButtonText: "No, guardar",
+		// }).then((result) => {
+		// 	if (result.isConfirmed) {
+		// 		if (LocalStorageService.deleteData(myLocalStorage, id)) {
+		// 			message("success", "Imagen eliminada correctamente");
+		// 			setLiberImages(
+		// 				LocalStorageService.getAllData(myLocalStorage)
+		// 			);
+		// 		} else {
+		// 			message(
+		// 				"error",
+		// 				"Ocurrío un error al eliminar la imagen localmente"
+		// 			);
+		// 		}
+		// 	}
+		// });
 	};
 
 	return (
@@ -74,7 +74,7 @@ export default function ImageCard({
 				<p className="my-2" />
 				<button
 					className="bg-red-500 p-2 rounded-full hover:bg-red-600"
-					onClick={removeImage}
+					// onClick={removeImage}
 				>
 					<img src={Trash} className="w-6" alt="Borrar" />
 				</button>

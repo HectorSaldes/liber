@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Menu from "../components/Menu";
 import ImagesService from "../service/ImagesService";
 import LocalStorageService from "../service/LocalStorageService";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import ImageCard from "../components/ImageCard";
 
 export default function Images() {
@@ -26,36 +26,36 @@ export default function Images() {
 				Swal.close();
 				setImageData(dataImage);
 				if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
-					message(
-						"success",
-						"Imagen subida y guardada correctamente"
-					);
+					// message(
+					// 	"success",
+					// 	"Imagen subida y guardada correctamente"
+					// );
 					setLiberImages(
 						LocalStorageService.getAllData(myLocalStorage)
 					);
 				} else {
-					message(
-						"error",
-						"Ocurrío un error al guardar la imagen localmente"
-					);
+					// message(
+					// 	"error",
+					// 	"Ocurrío un error al guardar la imagen localmente"
+					// );
 				}
 			}
 		} else {
-			message(
-				"error",
-				"Necesitas colocar una imagen .jpg, .jpeg, o .png"
-			);
+			// message(
+			// 	"error",
+			// 	"Necesitas colocar una imagen .jpg, .jpeg, o .png"
+			// );
 		}
 	};
 
-	const waitForResponse = () => {
-		Swal.fire({
-			title: "Guardando en la nube",
-			html: "Esto no tardará demasiado",
-			allowOutsideClick: false,
-			didOpen: () => Swal.showLoading(),
-		});
-	};
+	// const waitForResponse = () => {
+	// 	Swal.fire({
+	// 		title: "Guardando en la nube",
+	// 		html: "Esto no tardará demasiado",
+	// 		allowOutsideClick: false,
+	// 		didOpen: () => Swal.showLoading(),
+	// 	});
+	// };
 
 	const removeImage = () => {
 		setImageData(null);
@@ -66,11 +66,11 @@ export default function Images() {
 		return ImagesService.getBatches()
 			.then(({ data }) => data)
 			.catch((err) => {
-				Swal.close();
-				message(
-					"error",
-					"Ocurrió un error con la petición al servidor"
-				);
+				// Swal.close();
+				// message(
+				// 	"error",
+				// 	"Ocurrió un error con la petición al servidor"
+				// );
 			});
 	};
 
@@ -78,23 +78,23 @@ export default function Images() {
 		return ImagesService.uploadImage(formData, batch)
 			.then(({ data }) => data)
 			.catch((err) => {
-				Swal.close();
-				message(
-					"error",
-					"Ocurrió un error con la petición al servidor"
-				);
+				// Swal.close();
+				// message(
+				// 	"error",
+				// 	"Ocurrió un error con la petición al servidor"
+				// );
 			});
 	};
 
-	const message = (type, desc) => {
-		Swal.fire({
-			position: "top-end",
-			icon: type,
-			title: desc,
-			showConfirmButton: false,
-			timer: 2000,
-		});
-	};
+	// const message = (type, desc) => {
+	// 	Swal.fire({
+	// 		position: "top-end",
+	// 		icon: type,
+	// 		title: desc,
+	// 		showConfirmButton: false,
+	// 		timer: 2000,
+	// 	});
+	// };
 
 	return (
 		<div
@@ -226,8 +226,8 @@ export default function Images() {
 									<ImageCard
 										key={i}
 										img={img}
-										Swal={Swal}
-										message={message}
+										// Swal={Swal}
+										// message={message}
 										myLocalStorage={myLocalStorage}
 										LocalStorageService={
 											LocalStorageService
