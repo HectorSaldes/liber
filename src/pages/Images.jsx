@@ -17,7 +17,7 @@ export default function Images() {
 
 	const onSubmit = async () => {
 		if (image !== null) {
-			waitForResponse();
+			//waitForResponse();
 			let data = new FormData();
 			data.append("image", image, image.name);
 			let batch = await getBatch();
