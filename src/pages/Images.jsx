@@ -23,7 +23,7 @@ export default function Images() {
 			let batch = await getBatch();
 			if (batch.latency === 0) {
 				let dataImage = await getImageUploaded(data, batch.id);
-				Swal.close();
+				//Swal.close();
 				setImageData(dataImage);
 				if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
 					// message(
