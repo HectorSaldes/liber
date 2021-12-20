@@ -17,5 +17,3 @@ export default function App() {
         </MainBrowser>
     )
 }
-
-export default App;
