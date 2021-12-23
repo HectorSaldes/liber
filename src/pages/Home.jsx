@@ -3,33 +3,34 @@ import Menu from "../components/Menu";
 
 export default function Home() {
 	return (
-		<div
-			className="w-full h-screen p-4 text-white"
-			style={{
-				background:
-					"linear-gradient(116.82deg, #410066 0%, #340052 100%)",
-			}}
-		>
-			<div className="glassmorphism w-full h-full">
-				<Menu />
-				<div className="w-full h-5/6 flex justify-center items-center text-center">
-					<div>
-						<h1 className="text-9xl font-bold">LIBER</h1>
-						<p className="text-4xl font-extralight my-6">
-							<i>Liber</i> del romano significa libre.{" "}
-							<i>Liber</i> se usa para decir que algo es libre o
-							gratis
-						</p>
-						<a
-							href="https://hectorsaldes.netlify.app/"
-							className="text-xl"
-							target="_blank"
-							without
-							rel="noreferrer"
+		<div style={{ color: "var(--yellow-50)", fontFamily: "Poppins" }}>
+			<Menu />
+			<div className="p-grid p-p-4">
+				<div className="p-text-center">
+					<div className="p-text-bold" style={{ fontSize: "8em" }}>
+						LIBER
+					</div>
+					<div className="p-text-justify p-text-sm-center">
+						<div
+							className="p-text-italic"
+							style={{
+								color: "var(--bluegray-300)",
+								fontSize: "1.5em",
+							}}
 						>
-							Aplicación web escrita desde un teclado con amor.
-							Hector 💥
-						</a>
+							Liber del romano significa libre.
+						</div>
+						<div
+							className=""
+							style={{
+								fontSize: "2em",
+							}}
+						>
+							Este un proyecto creado con la intención de ayudar a
+							personas con la intención de descargar iconos con
+							extención svg gratis y subir sus imágenes a internet
+							mediante S3 de Amazon completamente gratis.
+						</div>
 					</div>
 				</div>
 			</div>

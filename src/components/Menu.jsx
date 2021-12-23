@@ -1,27 +1,53 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Menubar } from "primereact/menubar";
+import { Button } from "primereact/button";
+import { useNavigate } from "react-router-dom";
+import LIBER from "../assets/svg/LIBER.svg";
 
 export default function Menu() {
-    return (
-        <div className="w-full glassmorphism text-white py-3 px-6 md:px-10">
-            <div className="flex justify-between">
-                <Link to="/">
-                    <h1 className="font-bold text-5xl">LIBER</h1>
-                </Link>
-                <div className="w-1/4 flex items-center">
-                    <Link to="/icons" className="w-1/2">
-                        <button className="flex justify-center items-center w-12 h-12 md:w-full rounded-full bg-blue-400 font-semibold text-xl py-2 transform hover:scale-105">
-                            <span className="hidden md:block">Iconos</span>
-                        </button>
-                    </Link>
-                    <hr className="mx-2 md:mx-3"/>
-                    <Link to="/images" className="w-1/2">
-                        <button className="flex justify-center items-center w-12 h-12 md:w-full rounded-full bg-yellow-400 font-semibold text-xl py-2 transform hover:scale-105">
-                            <span className="hidden md:block">Imágenes</span>
-                        </button>
-                    </Link>
-                </div>
-            </div>
-        </div>
-    );
+	const navigate = useNavigate();
+	const items = [
+		{
+			label: "Inicio",
+			icon: "pi pi-fw pi-home",
+			command: () => navigate("/"),
+		},
+		{
+			label: "Iconos",
+			icon: "pi pi-fw pi-box",
+			command: () => navigate("/icons"),
+		},
+
+		{
+			label: "Imágenes",
+			icon: "pi pi-fw pi-camera",
+			command: () => navigate("/images"),
+		},
+	];
+
+	return (
+		<Menubar
+			model={items}
+			start={
+				<img
+					className="p-mr-5"
+					width="100"
+					src={LIBER}
+					alt="LOGO LIBER"
+				/>
+			}
+			end={
+				<a
+					href="https://hectorsaldes.netlify.app/"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<Button
+						label="¡Dame esos 5! 🖐"
+						className="p-button-link"
+					/>
+				</a>
+			}
+		/>
+	);
 }

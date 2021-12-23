@@ -1,254 +1,177 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { FileUpload } from "primereact/fileupload";
+import { Toast } from "primereact/toast";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { confirmDialog } from "primereact/confirmdialog";
 import Menu from "../components/Menu";
 import ImagesService from "../service/ImagesService";
 import LocalStorageService from "../service/LocalStorageService";
-// import Swal from "sweetalert2";
-import ImageCard from "../components/ImageCard";
 
 export default function Images() {
+	const toast = useRef(null);
 	const myLocalStorage = "liber-images";
 	const [liberImages, setLiberImages] = useState([]);
-	const [image, setImage] = useState(null);
-	const [imageData, setImageData] = useState(null);
 
 	useEffect(() => {
 		setLiberImages(LocalStorageService.initLocal(myLocalStorage));
 	}, []);
 
-	const onSubmit = async () => {
-		if (image !== null) {
-			//waitForResponse();
-			let data = new FormData();
-			data.append("image", image, image.name);
-			let batch = await getBatch();
-			if (batch.latency === 0) {
-				let dataImage = await getImageUploaded(data, batch.id);
-				//Swal.close();
-				setImageData(dataImage);
-				if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
-					// message(
-					// 	"success",
-					// 	"Imagen subida y guardada correctamente"
-					// );
-					setLiberImages(
-						LocalStorageService.getAllData(myLocalStorage)
-					);
-				} else {
-					// message(
-					// 	"error",
-					// 	"Ocurrío un error al guardar la imagen localmente"
-					// );
-				}
-			}
-		} else {
-			// message(
-			// 	"error",
-			// 	"Necesitas colocar una imagen .jpg, .jpeg, o .png"
-			// );
-		}
-	};
-
-	// const waitForResponse = () => {
-	// 	Swal.fire({
-	// 		title: "Guardando en la nube",
-	// 		html: "Esto no tardará demasiado",
-	// 		allowOutsideClick: false,
-	// 		didOpen: () => Swal.showLoading(),
-	// 	});
-	// };
-
-	const removeImage = () => {
-		setImageData(null);
-		setImage(null);
-	};
-
-	const getBatch = async () => {
-		return ImagesService.getBatches()
-			.then(({ data }) => data)
-			.catch((err) => {
-				// Swal.close();
-				// message(
-				// 	"error",
-				// 	"Ocurrió un error con la petición al servidor"
-				// );
-			});
-	};
-
 	const getImageUploaded = async (formData, batch) => {
 		return ImagesService.uploadImage(formData, batch)
 			.then(({ data }) => data)
 			.catch((err) => {
-				// Swal.close();
-				// message(
-				// 	"error",
-				// 	"Ocurrió un error con la petición al servidor"
-				// );
+				console.error(err);
+				messages("error", "Falló", err);
 			});
 	};
 
-	// const message = (type, desc) => {
-	// 	Swal.fire({
-	// 		position: "top-end",
-	// 		icon: type,
-	// 		title: desc,
-	// 		showConfirmButton: false,
-	// 		timer: 2000,
-	// 	});
-	// };
+	const onUpload = async (e) => {
+		let batch = await JSON.parse(e.xhr.response);
+		let imageTaken = e.files[0];
+		if (e.xhr.status === 201) {
+			if (batch.latency === 0) {
+				let data = new FormData();
+				data.append("image", imageTaken, imageTaken.name);
+				let dataImage = await getImageUploaded(data, batch.id);
+				if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
+					setLiberImages(
+						LocalStorageService.getAllData(myLocalStorage)
+					);
+					messages("success", "Imagen subida", "Tu imagen se guardo");
+				} else {
+					messages(
+						"error",
+						"Imagen no subida",
+						"Tu imagen no se guardo"
+					);
+				}
+			}
+		} else {
+			messages(
+				"error",
+				"Problemas en el servidor",
+				"Intentalo más tarde"
+			);
+		}
+	};
+
+	const footer = `En total existen ${
+		liberImages ? liberImages.length : 0
+	} imágenes.`;
+
+	const name = ({ filename }) => <span>{filename}</span>;
+
+	const dimensions = ({ source: { height, width } }) => (
+		<span>{`${height} x ${width}`}</span>
+	);
+
+	const image = ({ source: { url } }) => (
+		<img className="" style={{ width: "100px" }} alt={url} src={url} />
+	);
+
+	const actions = ({ id, source: { url } }) => (
+		<div>
+			<a href={url} target="_blank" rel="noreferrer">
+				<Button
+					icon="pi pi-arrow-up-right"
+					className="p-button-rounded p-button-warning"
+				/>
+			</a>
+			<Button
+				icon="pi pi-trash"
+				className="p-button-rounded p-button-danger p-mx-sm-2"
+				onClick={() => confirm(id)}
+			/>
+			<Button
+				icon="pi pi-copy"
+				className="p-button-rounded p-button-info"
+				onClick={() => copyToClipboard(url)}
+			/>
+		</div>
+	);
+
+	const copyToClipboard = (url) => {
+		navigator.clipboard.writeText(url);
+		messages(
+			"info",
+			"URL Copiada",
+			"Se ha copiado al portapapeles el enlace"
+		);
+	};
+
+	const accept = (id) => {
+		if (LocalStorageService.deleteData(myLocalStorage, id)) {
+			setLiberImages(LocalStorageService.getAllData(myLocalStorage));
+			messages("success", "Imagen eliminada", "Se eliminó la imagen");
+		} else {
+			messages("error", "Ocurrío un error", "La imagen no se eliminó");
+		}
+	};
+
+	const confirm = (id) => {
+		confirmDialog({
+			header: "Eliminación",
+			message: "¿Deseas eliminar esta imagen para siempre?",
+			icon: "pi pi-info-circle",
+			acceptClassName: "p-button-danger",
+			accept: () => accept(id),
+			draggable: false,
+			closable: true,
+			closeOnEscape: true,
+		});
+	};
+
+	const messages = (severity, summary, detail) => {
+		toast.current.show({ severity, summary, detail, life: 3000 });
+	};
 
 	return (
-		<div
-			className="w-full h-full md:h-screen p-4 text-white"
-			style={{
-				background:
-					"linear-gradient(116.82deg, #B47904 0%, #8C5E03 100%)",
-			}}
-		>
-			<div className="glassmorphism w-full h-full overflow-y-auto">
-				<Menu />
-				<div className="mt-5 w-auto h-auto">
-					<div className="text-center">
-						<p className="text-5xl font-bold">Imágenes</p>
-						<p className="text-2xl py-2">
-							Aquí podrás guardar tus imágenes en internet para
-							poder usarlas en cualquier lado
-						</p>
+		<div style={{ color: "var(--yellow-50)", fontFamily: "Poppins" }}>
+			<Menu />
+			<Toast ref={toast}></Toast>
+			<div className="p-grid p-dir-col p-text-center p-p-4">
+				<div className="p-col">
+					<div className="p-text-bold" style={{ fontSize: "40px" }}>
+						Imágenes
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 p-5 gap-3">
-						<div className="text-center p-3">
-							<div>
-								<div className="flex justify-center">
-									<div className="mb-3 w-full">
-										<h2 className="mb-2 text-3xl font-semibold">
-											Escoge tu imagen
-										</h2>
-										<input
-											className="block w-full px-2 py-1.5 text-xl text-gray-700 bg-white border border-solid  border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600  focus:outline-none"
-											id="image"
-											type="file"
-											name="image"
-											accept="image/*"
-											onChange={(e) =>
-												setImage(e.target.files[0])
-											}
-										/>
-									</div>
-								</div>
-								<button
-									className="glassmorphism w-full md:w-1/2 py-3 text-xl font-semibold hover:bg-yellow-400 hover:text-black"
-									onClick={onSubmit}
-								>
-									Guardar imagen
-								</button>
-								<button
-									className="glassmorphism mt-2 md:mt-0 ml-0 md:ml-2 w-full md:w-1/3 py-2 px-5 text-lg font-semibold hover:bg-red-500 hover:text-black"
-									onClick={removeImage}
-								>
-									Quitar imagen
-								</button>
-							</div>
-
-							{imageData && (
-								<div className="mt-10">
-									<h2 className="mb-2 text-3xl font-semibold">
-										Resultado de imagen guardada
-									</h2>
-									<div className="w-full rounded-md glassmorphism">
-										<img
-											className="w-full h-52 object-cover"
-											src={imageData.source.url}
-											alt=""
-										/>
-										<div className="p-5 text-xl text-left">
-											<table className="table-auto border-collapse w-full">
-												<thead>
-													<tr>
-														<th>Clave</th>
-														<th>Valor</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>ID:</td>
-														<td>{imageData.id}</td>
-													</tr>
-													<tr>
-														<td>
-															Nombre del archivo:
-														</td>
-														<td>
-															{imageData.filename}
-														</td>
-													</tr>
-													<tr>
-														<td>Dimensiones:</td>
-														<td>{`${imageData.source.height} x ${imageData.source.width}`}</td>
-													</tr>
-													<tr>
-														<td>Tipo:</td>
-														<td>
-															{
-																imageData.source
-																	.type
-															}
-														</td>
-													</tr>
-													<tr>
-														<td>URL:</td>
-														<td>
-															<a
-																href={
-																	imageData
-																		.source
-																		.url
-																}
-																target="_blank"
-																className="underline text-yellow-300"
-																rel="noreferrer"
-															>
-																Enlace aquí
-															</a>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							)}
-						</div>
-						<div className="text-center p-3 ">
-							<h2 className="mb-2 text-3xl font-bold">
-								Tus imágenes almacenadas
-							</h2>
-							<div className="p-3">
-								{liberImages.map((img, i) => (
-									<ImageCard
-										key={i}
-										img={img}
-										// Swal={Swal}
-										// message={message}
-										myLocalStorage={myLocalStorage}
-										LocalStorageService={
-											LocalStorageService
-										}
-										setLiberImages={setLiberImages}
-									/>
-								))}
-								{liberImages.length === 0 ? (
-									<div>
-										<h2 className="text-2xl">
-											¡No hay nada almanecado aún!
-										</h2>
-										<p className="text-xl">
-											Empieza a subir imágenes 😎
-										</p>
-									</div>
-								) : (
-									<></>
-								)}
-							</div>
-						</div>
+					<div
+						className="p-mb-2 p-text-justify p-text-sm-center"
+						style={{ fontSize: "25px" }}
+					>
+						Aquí podrás guardar tus imágenes en internet para poder
+						usarlas en cualquier lado
+					</div>
+					<FileUpload
+						name="File"
+						url="https://api-upscaler-origin.icons8.com/api/frontend/v1/batches"
+						onUpload={onUpload}
+						accept="image/*"
+						maxFileSize={5000000}
+						chooseLabel="Añadir imagen"
+						uploadLabel="Subir imagen"
+						cancelLabel="Cancelar"
+						emptyTemplate={
+							<p className="p-m-0">Sin ninguna imagen</p>
+						}
+					/>
+				</div>
+				<div className="p-col">
+					<div className="p-card">
+						<DataTable
+							value={liberImages}
+							header="Tabla de imágenes guardadas localmente"
+							footer={footer}
+							responsiveLayout="stack"
+							paginator
+							rows={5}
+						>
+							<Column header="Nombre" body={name} />
+							<Column header="Dimensiones" body={dimensions} />
+							<Column header="Imagen" body={image} />
+							<Column header="Acciones" body={actions} />
+						</DataTable>
 					</div>
 				</div>
 			</div>
