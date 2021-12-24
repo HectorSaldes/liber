@@ -18,7 +18,7 @@
     This is a personal project to help others save and download icons and images from others apps
     <br />
     <br />
-    <a href="hhttps://hectorsaldes.github.io/liber/#/">View Page</a>
+    <a href="https://hectorsaldes.github.io/liber/#/">View Page</a>
     ·
     <a href="https://github.com/HectorSaldes/liber/issues">Report Bug</a>
     ·
