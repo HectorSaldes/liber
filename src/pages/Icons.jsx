@@ -2,24 +2,23 @@ import React from "react";
 import Menu from "../components/Menu";
 
 export default function Icons() {
-    return (
-        <div
-            className="w-full h-screen p-4 text-white"
-            style={{
-                background:
-                    "linear-gradient(116.82deg, #00567A 0%, #003A52 100%)",
-            }}
-        >
-            <div className="glassmorphism w-full h-full">
-                <Menu />
-                <div className="mt-5">
-                    <div className="text-center">
-                        <h1 className="text-6xl font-bold">LIBER</h1>
-                        <p className="text-xl">Iconos</p>
-                    </div>
+	return (
+		<div style={{ color: "var(--yellow-50)", fontFamily: "Poppins" }}>
+			<Menu />
+			<div className="p-grid p-dir-col p-text-center p-p-4">
+				<div className="p-col">
+					<div className="p-text-bold" style={{ fontSize: "40px" }}>
+						Iconos
+					</div>
 
-                </div>
-            </div>
-        </div>
-    );
+					<div
+						className="p-mb-2 p-text-justify p-text-sm-center"
+						style={{ fontSize: "25px" }}
+					>
+						Próximamente...
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

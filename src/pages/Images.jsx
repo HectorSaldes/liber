@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+import Menu from "../components/Menu";
+import ImagesService from "../service/ImagesService";
+import LocalStorageService from "../service/LocalStorageService";
 import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
-import Menu from "../components/Menu";
-import ImagesService from "../service/ImagesService";
-import LocalStorageService from "../service/LocalStorageService";
 
 export default function Images() {
 	const toast = useRef(null);
@@ -93,12 +93,21 @@ export default function Images() {
 	);
 
 	const copyToClipboard = (url) => {
-		navigator.clipboard.writeText(url);
-		messages(
-			"info",
-			"URL Copiada",
-			"Se ha copiado al portapapeles el enlace"
-		);
+		try {
+			navigator.clipboard.writeText(url);
+			messages(
+				"info",
+				"URL copiada",
+				"Se ha copiado al portapapeles el enlace"
+			);
+		} catch (error) {
+			messages(
+				"error",
+				"URL no copiada",
+				"No se admite esta función"
+			);
+		}
+
 	};
 
 	const accept = (id) => {
@@ -145,7 +154,7 @@ export default function Images() {
 					</div>
 					<FileUpload
 						name="File"
-						url="https://api-upscaler-origin.icons8.com/api/frontend/v1/batches"
+						url="https://allowingcors.herokuapp.com/https://api-upscaler-origin.icons8.com/api/frontend/v1/batches"
 						onUpload={onUpload}
 						accept="image/*"
 						maxFileSize={5000000}
@@ -153,7 +162,7 @@ export default function Images() {
 						uploadLabel="Subir imagen"
 						cancelLabel="Cancelar"
 						emptyTemplate={
-							<p className="p-m-0">Sin ninguna imagen</p>
+							<p className="p-m-0">Solamente puedes subir una imagen a la vez</p>
 						}
 					/>
 				</div>
@@ -161,7 +170,9 @@ export default function Images() {
 					<div className="p-card">
 						<DataTable
 							value={liberImages}
-							header="Tabla de imágenes guardadas localmente"
+							header={<div style={{color: "var(--yellow-50)",fontSize:'20px'}} >
+								Tabla de imágenes guardadas localmente
+							</div>}
 							footer={footer}
 							responsiveLayout="stack"
 							paginator
