@@ -28,31 +28,49 @@ export default function Images() {
 	};
 
 	const onUpload = async (e) => {
-		let batch = await JSON.parse(e.xhr.response);
-		let imageTaken = e.files[0];
-		if (e.xhr.status === 201) {
-			if (batch.latency === 0) {
-				let data = new FormData();
-				data.append("image", imageTaken, imageTaken.name);
-				let dataImage = await getImageUploaded(data, batch.id);
-				if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
-					setLiberImages(
-						LocalStorageService.getAllData(myLocalStorage)
-					);
-					messages("success", "Imagen subida", "Tu imagen se guardo");
-				} else {
-					messages(
-						"error",
-						"Imagen no subida",
-						"Tu imagen no se guardo"
-					);
+		if (
+			e.files[0].type === "image/png" ||
+			e.files[0].type === "image/jpg" ||
+			e.files[0].type === "image/jpeg"
+		) {
+			let batch = await JSON.parse(e.xhr.response);
+			let imageTaken = e.files[0];
+			if (e.xhr.status === 201) {
+				if (batch.latency === 0) {
+					let data = new FormData();
+					data.append("image", imageTaken, imageTaken.name);
+					let dataImage = await getImageUploaded(data, batch.id);
+					if (
+						LocalStorageService.saveData(myLocalStorage, dataImage)
+					) {
+						setLiberImages(
+							LocalStorageService.getAllData(myLocalStorage)
+						);
+						messages(
+							"success",
+							"Imagen subida",
+							"Tu imagen se guardo"
+						);
+					} else {
+						messages(
+							"error",
+							"Imagen no subida",
+							"Tu imagen no se guardo"
+						);
+					}
 				}
+			} else {
+				messages(
+					"error",
+					"Problemas en el servidor",
+					"Intentalo más tarde"
+				);
 			}
 		} else {
 			messages(
 				"error",
-				"Problemas en el servidor",
-				"Intentalo más tarde"
+				"Imagen no válida",
+				"Este formato de imagen no se admite, intenta con otra"
 			);
 		}
 	};
@@ -101,13 +119,8 @@ export default function Images() {
 				"Se ha copiado al portapapeles el enlace"
 			);
 		} catch (error) {
-			messages(
-				"error",
-				"URL no copiada",
-				"No se admite esta función"
-			);
+			messages("error", "URL no copiada", "No se admite esta función");
 		}
-
 	};
 
 	const accept = (id) => {
@@ -150,19 +163,21 @@ export default function Images() {
 						style={{ fontSize: "25px" }}
 					>
 						Aquí podrás guardar tus imágenes en internet para poder
-						usarlas en cualquier lado
+						usarlas en cualquier lado en formato PNG, JPG o JPEG
 					</div>
 					<FileUpload
 						name="File"
 						url="https://allowingcors.herokuapp.com/https://api-upscaler-origin.icons8.com/api/frontend/v1/batches"
 						onUpload={onUpload}
-						accept="image/*"
+						accept=".png, .jpg, .jpeg"
 						maxFileSize={5000000}
 						chooseLabel="Añadir imagen"
 						uploadLabel="Subir imagen"
 						cancelLabel="Cancelar"
 						emptyTemplate={
-							<p className="p-m-0">Solamente puedes subir una imagen a la vez</p>
+							<p className="p-m-0">
+								Solamente puedes subir una imagen a la vez
+							</p>
 						}
 					/>
 				</div>
@@ -170,9 +185,16 @@ export default function Images() {
 					<div className="p-card">
 						<DataTable
 							value={liberImages}
-							header={<div style={{color: "var(--yellow-50)",fontSize:'20px'}} >
-								Tabla de imágenes guardadas localmente
-							</div>}
+							header={
+								<div
+									style={{
+										color: "var(--yellow-50)",
+										fontSize: "20px",
+									}}
+								>
+									Tabla de imágenes guardadas localmente
+								</div>
+							}
 							footer={footer}
 							responsiveLayout="stack"
 							paginator

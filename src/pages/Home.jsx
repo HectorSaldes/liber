@@ -7,7 +7,7 @@ export default function Home() {
 		{
 			title: "Heroku",
 			image: "https://alejandrojs.files.wordpress.com/2017/07/heroku-og-cad174838a49b266550809e29026ec9bc18e056dae8f9cf523ea4237379691f9.png",
-			text: "Se utiliza Heroku para habilitar la peticón a las APIs y asi evitar problemas de CORS dentro de la aplicación, por lo que existen posibilidades de que la aplicación al principio tarde en ejecutar una petición.",
+			text: "Se utiliza Heroku para habilitar la petición a las APIs y así evitar problemas de CORS dentro de la aplicación, por lo que existen posibilidades de que la aplicación al principio tarde en ejecutar una petición.",
 		},
 		{
 			title: "Iconos Ocho",
@@ -33,30 +33,28 @@ export default function Home() {
 				</div>
 				<div className="p-text-justify p-text-sm-center">
 					<div
-						className="p-text-italic"
+						className="p-text-italic p-text-center"
 						style={{
-							color: "var(--bluegray-300)",
+							color: "var(--yellow-400)",
 							fontSize: "1.5em",
 						}}
 					>
 						Liber del romano significa libre.
 					</div>
 					<div
-						className=""
 						style={{
 							fontSize: "2em",
 						}}
 					>
-						Este un proyecto creado con la intención de ayudar a
-						personas con la intención de descargar iconos con
-						extención svg gratis y subir sus imágenes a internet
-						mediante S3 de Amazon completamente gratis.
+						Este un proyecto creado para ayudar a personas con la
+						intención de descargar iconos y subir imágenes a
+						internet completamente gratis.
 					</div>
 				</div>
 			</div>
 			<div className="p-grid p-mx-sm-6 p-text-center">
-				{myCards.map((c) => (
-					<div className="p-col">
+				{myCards.map((c, i) => (
+					<div className="p-col-12 p-sm-6 p-md-4" key={i}>
 						<Card
 							title={c.title}
 							header={
@@ -64,15 +62,13 @@ export default function Home() {
 									style={{
 										backgroundSize: "cover",
 										backgroundRepeat: "no-repeat",
+										backgroundClip: "border-box",
 									}}
 									alt={c.title}
-									height="200"
-									width="auto"
 									src={c.image}
 								/>
 							}
 							style={{
-								width: "25rem",
 								marginBottom: "2em",
 								fontSize: "20px",
 							}}
