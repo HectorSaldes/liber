@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/liber/static/css/main.143fb210.css",
-    "main.js": "/liber/static/js/main.d8fcbf0b.js",
+    "main.js": "/liber/static/js/main.8c6d027a.js",
     "static/js/377.ed307b4f.chunk.js": "/liber/static/js/377.ed307b4f.chunk.js",
     "static/media/primeicons.svg": "/liber/static/media/primeicons.c6e2053303524e39530c.svg",
     "static/media/primeicons.eot": "/liber/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
@@ -11,11 +11,11 @@
     "static/media/LIBER.svg": "/liber/static/media/LIBER.6782ea4020bcc31b8f97f912217f45e1.svg",
     "index.html": "/liber/index.html",
     "main.143fb210.css.map": "/liber/static/css/main.143fb210.css.map",
-    "main.d8fcbf0b.js.map": "/liber/static/js/main.d8fcbf0b.js.map",
+    "main.8c6d027a.js.map": "/liber/static/js/main.8c6d027a.js.map",
     "377.ed307b4f.chunk.js.map": "/liber/static/js/377.ed307b4f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.143fb210.css",
-    "static/js/main.d8fcbf0b.js"
+    "static/js/main.8c6d027a.js"
   ]
 }
