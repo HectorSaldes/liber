@@ -37,6 +37,11 @@ export default function Images() {
 			let imageTaken = e.files[0];
 			if (e.xhr.status === 201) {
 				if (batch.latency === 0) {
+					messages(
+						"info",
+						"Subiendo imagen",
+						"Esto tarda unos segundos"
+					);
 					let data = new FormData();
 					data.append("image", imageTaken, imageTaken.name);
 					let dataImage = await getImageUploaded(data, batch.id);
@@ -145,8 +150,8 @@ export default function Images() {
 		});
 	};
 
-	const messages = (severity, summary, detail) => {
-		toast.current.show({ severity, summary, detail, life: 3000 });
+	const messages = (severity, summary, detail, sticky = false) => {
+		toast.current.show({ severity, summary, detail, life: 3000, sticky });
 	};
 
 	return (

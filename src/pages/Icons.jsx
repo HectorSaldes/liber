@@ -31,16 +31,18 @@ export default function Icons() {
 			);
 	};
 
-	const searchIcons = () => {
+	const searchIcons = (e) => {
 		try {
-			if (valueSelected) {
-				getAllIcons();
-			} else {
-				messages(
-					"info",
-					"Debes colocar alguna palabra",
-					"Dentro del cuadro de texto"
-				);
+			if (e === "Enter") {
+				if (valueSelected) {
+					getAllIcons();
+				} else {
+					messages(
+						"info",
+						"Debes colocar alguna palabra",
+						"Dentro del cuadro de texto"
+					);
+				}
 			}
 		} catch (error) {
 			messages(
@@ -54,6 +56,33 @@ export default function Icons() {
 	const getAllIcons = async () => {
 		let allIcons = await IconsService.searchIcons(valueSelected);
 		setListOfIcons(allIcons);
+	};
+
+	const getIconToDownload = async (id, commonName) => {
+		try {
+			await IconsService.getIcon(id).then(({ data }) => {
+				convertSvgToFileAndDownload(data.icon.svg, commonName);
+			});
+		} catch (error) {
+			messages(
+				"error",
+				"Ocurrió un error al esperar al servidor",
+				"Vuelve a intentarlo un poco más tarde"
+			);
+		}
+	};
+
+	const convertSvgToFileAndDownload = (svg, name) => {
+		let decode = atob(svg);
+		const blob = new Blob([decode]);
+		const fileUrl = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = fileUrl;
+		link.setAttribute("download", `${name}.svg`);
+		document.body.appendChild(link);
+		link.click();
+		URL.revokeObjectURL(fileUrl);
+		link.parentNode.removeChild(link);
 	};
 
 	const messages = (severity, summary, detail) => {
@@ -85,6 +114,7 @@ export default function Icons() {
 						completeMethod={searchWithText}
 						onChange={(e) => setValueSelected(e.value)}
 						inputStyle={{ fontSize: "25px" }}
+						onKeyPress={({ key }) => searchIcons(key)}
 					/>
 					<br />
 					<br />
@@ -92,7 +122,7 @@ export default function Icons() {
 						label="Buscar"
 						icon="pi pi-search"
 						className="p-button-lg"
-						onClick={searchIcons}
+						onClick={() => searchIcons("Enter")}
 					/>
 				</div>
 				<div className="p-col">
@@ -105,7 +135,7 @@ export default function Icons() {
 								<IconCard
 									payload={i}
 									key={key}
-									messages={messages}
+									getIconToDownload={getIconToDownload}
 								/>
 							))
 						)}
