@@ -45,8 +45,9 @@ These are two mockups developed in this web page
 
 ## Roadmap
 
--   [v1.1.0] First launch to the web application with images pages working
+-   [v2.3.1] Request to icon to download svg fixed
 -   [v2.3.0] Secong launch now you can download icons or emojis on SVG format
+-   [v1.1.0] First launch to the web application with images pages working
 
 See the [open issues](https://github.com/HectorSaldes/liber/issues) for a full list of proposed features (and known issues).
 

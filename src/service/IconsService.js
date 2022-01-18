@@ -21,7 +21,7 @@ class IconsService {
 
 	getIcon(id) {
 		return axios.get(
-			`https://allowingcors.herokuapp.com/https://api-icons.icons8.com/siteApi/icons/icon?id=${id}`,
+			`https://allowingcors.herokuapp.com/https://api-icons.icons8.com/siteApi/icons/icon?id=${id}&svg=true`,
 			body
 		);
 	}
