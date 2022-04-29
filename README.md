@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/HectorSaldes/liber">
-    <img src="https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/293/5531786c-c9bf-44f1-a23c-317bb76d08e3.png" alt="Logo" width="auto" height="150">
+    <img src="./src/assets/img/Logo.png" alt="Logo" width="auto" height="150">
   </a>
 
 <h3 align="center">LIBER</h3>
@@ -41,8 +41,6 @@ These are two mockups developed in this web page
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ROADMAP -->
-
 ## Roadmap
 
 -   [v2.3.1] Request to icon to download svg fixed
@@ -51,9 +49,7 @@ These are two mockups developed in this web page
 
 See the [open issues](https://github.com/HectorSaldes/liber/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
+<p align="right"><a href="#top">back to top</a></p>
 
 [contributors-shield]: https://img.shields.io/github/contributors/HectorSaldes/liber.svg?style=for-the-badge
 [contributors-url]: https://github.com/HectorSaldes/liber/graphs/contributors
@@ -65,4 +61,4 @@ See the [open issues](https://github.com/HectorSaldes/liber/issues) for a full l
 [issues-url]: https://github.com/HectorSaldes/liber/issues
 [license-shield]: https://img.shields.io/github/license/HectorSaldes/liber.svg?style=for-the-badge
 [license-url]: https://github.com/HectorSaldes/liber/blob/master/LICENSE.txt
-[liber-screenshot]: https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/655/afa6faa8-22e4-4bfc-97e8-35ac95745b7c.png
+[liber-screenshot]: ./src/assets/img/Mockup.png
