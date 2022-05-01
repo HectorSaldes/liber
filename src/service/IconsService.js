@@ -1,18 +1,19 @@
 import axios from "axios";
+const CORS_ENDPONIT = "https://allowingcors.herokuapp.com/";
 const body = { nothing: "nothing" };
 
 class IconsService {
 	autoComplete(text) {
 		return axios.get(
-			`https://allowingcors.herokuapp.com/https://search.icons8.com/api/iconsets/autocomplete?term=${text}&limit=10&platform=all`,
+			`${CORS_ENDPONIT}https://search.icons8.com/api/iconsets/autocomplete?term=${text}&limit=10&platform=all`,
 			body
 		);
 	}
 
-	async searchIcons(query) {
+	async searchIcons(query, platform = 'all', offset = 0) {
 		return await axios
 			.get(
-				`https://allowingcors.herokuapp.com/https://search.icons8.com/api/iconsets/v5/search?term=${query}&amount=100&platform=all&authors=all`,
+				`${CORS_ENDPONIT}https://search.icons8.com/api/iconsets/v5/search?term=${query}&amount=50&offset=${offset}&platform=${platform}&authors=all`,
 				body
 			)
 			.then(({ data: { icons } }) => icons)
@@ -21,10 +22,12 @@ class IconsService {
 
 	getIcon(id) {
 		return axios.get(
-			`https://allowingcors.herokuapp.com/https://api-icons.icons8.com/siteApi/icons/icon?id=${id}&svg=true`,
+			`${CORS_ENDPONIT}https://api-icons.icons8.com/siteApi/icons/icon?id=${id}&svg=true`,
 			body
 		);
 	}
 }
 
 export default new IconsService();
+
+// https://img.icons8.com/?id=e7CuBNEMwjao&format=gif&name=icons8-document.gif&fromSite=true&token=&color=000000

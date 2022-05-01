@@ -43,6 +43,7 @@ These are two mockups developed in this web page
 
 ## Roadmap
 
+-   [v3.0.0] Now you can search by style, delete filters and show more icons.
 -   [v2.3.1] Request to icon to download svg fixed
 -   [v2.3.0] Secong launch now you can download icons or emojis on SVG format
 -   [v1.1.0] First launch to the web application with images pages working

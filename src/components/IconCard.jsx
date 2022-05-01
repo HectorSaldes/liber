@@ -19,7 +19,7 @@ export default function IconCard({ payload, getIconToDownload }) {
 		<div className="p-col-6 p-sm-4 p-md-2" key={id}>
 			<Card
 				key={id}
-				title={name}
+				subTitle={name}
 				header={header}
 				footer={
 					<Button
