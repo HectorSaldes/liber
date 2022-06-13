@@ -1,8 +1,9 @@
-import 'primereact/resources/themes/vela-orange/theme.css'
-import 'primereact/resources/primereact.min.css'
-import 'primeicons/primeicons.css'
+import 'primereact/resources/themes/md-light-indigo/theme.css';
+import './assets/css/font.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
-import './assets/css/font.css'
+import './assets/css/font.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
