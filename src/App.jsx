@@ -1,5 +1,6 @@
 import { HashRouter as MainBrowser, Route, Routes } from 'react-router-dom';
 import React from 'react';
+import Menu from './components/Menu';
 import Home from './pages/Home';
 import Icons from './pages/Icons';
 import Images from './pages/Images';
@@ -8,6 +9,7 @@ import Error from './pages/Error';
 export default function App() {
   return (
     <MainBrowser>
+      <Menu />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/icons" element={<Icons />} />

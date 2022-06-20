@@ -39,7 +39,7 @@ export default function Menu() {
           rel="noreferrer"
           style={{textDecoration: 'none'}}
         >
-          <Button label="¡Dame esos 5! 👋🏼" className="p-button-info" />
+          <Button label="¡Dame esos 5! 👋🏼" className="p-button-info p-button-outlined" />
         </a>
       }
     />

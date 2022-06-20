@@ -14,6 +14,7 @@ class LocalStorageService {
 
   saveData(key, item) {
     try {
+      item['date'] = new Date().toDateString();
       const data = JSON.parse(localStorage.getItem(key));
       data.unshift(item);
       localStorage.setItem(key, JSON.stringify(data));

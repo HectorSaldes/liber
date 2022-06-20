@@ -10,7 +10,7 @@ export const myCards = [
     id: 2,
     title: 'Iconos8',
     image:
-      'https://maxst.icons8.com/vue-static/landings/page-index/plugins-preview.png',
+      'https://media-exp1.licdn.com/dms/image/C4E1BAQFePxrnbnWyRA/company-background_10000/0/1594136569467?e=2147483647&v=beta&t=L1O4I8OE1dssPZplUbQh-DslbnpXBER625-ZIYyF22k',
     text: 'Los iconos que se muestran y descargan son directamente de los iconos de Icon8 en su versión premium SVG, solamente es posible descargar ese formato.',
   },
   {

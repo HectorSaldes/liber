@@ -1,37 +1,29 @@
 import { Card } from 'primereact/card';
 import React from 'react';
-import Menu from '../components/Menu';
 import { myCards } from '../assets/utils/Items';
 
 export default function Home() {
   return (
-    <div>
-      <Menu />
-      <div className="p-4">
+    <div className="p-4">
+      <div
+        className="font-semibold text-center"
+        style={{ fontSize: '8em', color: '#87BCE7' }}
+      >
+        LIBER
+      </div>
+      <div className="text-justify md:text-center">
         <div
-          className="font-semibold text-center"
-          style={{ fontSize: '8em', color: 'var(--blue-500)' }}
+          className="p-text-italic p-text-center"
+          style={{ fontSize: '1.5em', color: 'var(--yellow-600)' }}
         >
-          LIBER
+          Liber del romano significa libre.
         </div>
-        <div className="text-justify md:text-center">
-          <div
-            className="p-text-italic p-text-center"
-            style={{
-              fontSize: '1.5em',
-              color: 'var(--yellow-600)',
-            }}
-          >
-            Liber del romano significa libre.
-          </div>
-          <div
-            style={{
-              fontSize: '2em',
-            }}
-          >
-            Este un proyecto creado para ayudar a personas a descargar iconos y
-            subir imágenes a internet completamente gratis.
-          </div>
+        <div
+          style={{  fontSize: '1.5em', }}
+          className="my-5"
+        >
+          Este un proyecto creado para ayudar a personas a descargar iconos y
+          subir imágenes a internet completamente gratis.
         </div>
       </div>
       <div className="grid text-center">
@@ -40,22 +32,21 @@ export default function Home() {
             <Card
               className="mb-2"
               title={c.title}
+              style={{fontFamily:'poppins'}}
               header={
                 <img
                   style={{
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundClip: 'border-box',
+                    objectFit: "cover"
                   }}
                   alt={c.title}
                   src={c.image}
                 />
               }
-              style={{
-                fontSize: '20px',
-              }}
             >
-              <div className="text-justify" style={{ lineHeight: '1.5' }}>
+              <div
+                className="text-justify"
+                style={{ lineHeight: '1.5', fontSize: '20px' }}
+              >
                 {c.text}
               </div>
             </Card>
