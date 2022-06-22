@@ -30,4 +30,3 @@ class IconsService {
 }
 
 export default new IconsService();
-// https://img.icons8.com/?id=e7CuBNEMwjao&format=gif&name=icons8-document.gif&fromSite=true&token=&color=000000;

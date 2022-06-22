@@ -1,13 +1,13 @@
-import { AutoComplete } from 'primereact/autocomplete';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
-import { Dropdown } from 'primereact/dropdown';
 import React, { useState, useRef, useEffect } from 'react';
-import Empty from '../assets/svg/emptyIcons.svg';
 import IconsService from '../service/IconsService';
-import IconSkeleton from '../components/IconSkeleton';
+import SkeletonCard from '../components/SkeletonCard';
 import IconCard from '../components/IconCard';
-import { categories } from '../assets/utils/Items';
+import ButtonUp from '../components/ButtonUp';
+import EmptySearch from '../components/EmptySearch';
+import { iconCategories } from '../assets/utils/Items';
+import Search from '../components/Search';
 
 export default function Icons() {
 	const toast = useRef(null);
@@ -172,59 +172,30 @@ export default function Icons() {
 			<div className='grid p-2'>
 				<div className='col-12 col-offset-0 md:col-6 md:col-offset-3'>
 					<div className='grid'>
-						<AutoComplete
-							inputId='inputSearch'
-							className='col-12 md:col-6'
-							placeholder='Busca iconos aquí...'
-							value={valueSelected}
-							autoFocus
-							suggestions={listSearch}
-							completeMethod={searchWithText}
-							onChange={(e) => setValueSelected(e.value)}
-							onKeyPress={({ key }) => searchIcons(key)}
-							inputStyle={{
-								width: '100%',
-							}}
+						<Search
+							autoCompleteState={valueSelected}
+							autoCompleteSetState={setValueSelected}
+							autoCompleteSuggetions={listSearch}
+							autoCompleteMethod={searchWithText}
+							autoCompleteSearchIcons={searchIcons}
+							dropdownCategories={iconCategories}
+							dropdownState={categorySelected}
+							dropdownSetState={setCategorySelected}
+							buttonSearch={searchIcons}
+							buttonClear={cleanFilters}
 						/>
-						<div className='col-12 md:col-6'>
-							<Dropdown
-								style={{ width: '100%' }}
-								options={categories}
-								value={categorySelected}
-								emptyMessage='No hay opciones'
-								placeholder='Selecciona una categoría'
-								onChange={(e) => setCategorySelected(e.value)}
-							/>
-						</div>
-						<div className='col-12 md:col-6'>
-							<Button
-								label='Buscar'
-								icon='pi pi-search'
-								className='p-button-info p-button-outlined'
-								onClick={() => searchIcons('Enter')}
-								style={{
-									width: '100%',
-								}}
-							/>
-						</div>
-						<div className='col-12 md:col-6'>
-							<Button
-								label='Borrar filtros'
-								className='p-button-danger p-button-outlined'
-								onClick={() => cleanFilters()}
-								style={{
-									width: '100%',
-								}}
-							/>
-						</div>
 					</div>
 				</div>
 			</div>
+
 			<div className='grid'>
 				{valueSelected === null ? (
-					<IconEmpty />
+					<EmptySearch
+						title='iconos'
+						color='blue'
+					/>
 				) : listOfIcons.length === 0 ? (
-					<IconSkeleton />
+					<SkeletonCard />
 				) : (
 					listOfIcons &&
 					listOfIcons.map((i, key) => (
@@ -246,36 +217,6 @@ export default function Icons() {
 		</div>
 	);
 }
-
-const ButtonUp = ({ goScrollUp }) => (
-	<div
-		className='speeddial-tooltip-demo'
-		style={{
-			position: 'fixed',
-			bottom: '3em',
-			right: '3em',
-		}}>
-		<Button
-			icon='pi pi-arrow-up'
-			className='p-button-rounded p-button-help p-button-lg speeddial-left'
-			onClick={() => goScrollUp()}
-		/>
-	</div>
-);
-
-const IconEmpty = () => (
-	<div className='col-12 text-center'>
-		<h1>Empieza por buscar algunos iconos</h1>
-		<img
-			src={Empty}
-			alt='empty'
-			width={300}
-			style={{
-				backgroundColor: 'var(--blue-400)',
-			}}
-		/>
-	</div>
-);
 
 const MoreIcons = ({ loading, onLoadingClick }) => (
 	<div className='col-12 text-center mt-5'>

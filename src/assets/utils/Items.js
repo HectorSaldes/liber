@@ -19,9 +19,15 @@ export const myCards = [
     image: 'https://i.ytimg.com/vi/ciQ83A20mHM/maxresdefault.jpg',
     text: 'Las imágenes que se guardan son almacenadas en el servicio de Amazon S3, pero con la limitación de que solamente están activas en un mes.',
   },
+  {
+    id: 4,
+    title: 'Ilustraciones',
+    image: 'https://maxst.icons8.com/vue-static/landings/page-index/products/preview/link-preview/ouch/ouch1.png',
+    text: 'Las ilustraciones mostradas son descargadas en formato PNG, en la mejor calidad posible para ser utilizadas en presentaciones, infografías o cualquier otro medio.',
+  },
 ];
 
-export const categories = [
+export const iconCategories = [
   { label: 'Todos los estilos', value: 'all' },
   { label: 'Emoji', value: 'emoji' },
   { label: 'iOS | Outlined', value: 'ios7' },
@@ -63,3 +69,18 @@ export const categories = [
   { label: 'Hand Drawn | Outlined', value: 'carbon_copy' },
   { label: 'Hand Drawn | Color', value: 'plasticine' },
 ];
+
+export const illustrationsCategories = [
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+  { label: '', value: '' },
+]
