@@ -43,6 +43,7 @@ These are two mockups developed in this web page
 
 ## Roadmap
 
+- [v4.3.0] A new theme and re-design with a new functionality Illustration!!
 - [v3.0.0] Now you can search by style, delete filters and show more icons.
 - [v2.3.1] Request to icon to download svg fixed
 - [v2.3.0] Secong launch now you can download icons or emojis on SVG format

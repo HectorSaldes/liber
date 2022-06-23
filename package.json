@@ -1,6 +1,6 @@
 {
   "name": "liber",
-  "version": "3.0.0",
+  "version": "4.3.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -43,7 +43,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "PWA" : "npm run build && npx serve -s build "
   },
   "eslintConfig": {
     "extends": [

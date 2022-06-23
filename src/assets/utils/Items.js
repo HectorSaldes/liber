@@ -72,7 +72,7 @@ export const iconCategories = [
 ];
 
 export const illustrationsCategories = [
-	{ label: 'All Styles', value: '' },
+	{ label: 'Todos los estilos', value: '' },
 	{ label: 'Experimental', value: 'experimental' },
 	{ label: 'Business 3D', value: 'business-3d' },
 	{ label: 'Casual life 3D', value: 'casual-life-3d' },
