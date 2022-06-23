@@ -1,10 +1,10 @@
-import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import React, { useState, useRef, useEffect } from 'react';
 import IconsService from '../service/IconsService';
 import SkeletonCard from '../components/SkeletonCard';
 import IconCard from '../components/IconCard';
 import ButtonUp from '../components/ButtonUp';
+import ButtonMore from '../components/ButtonMore';
 import EmptySearch from '../components/EmptySearch';
 import { iconCategories } from '../assets/utils/Items';
 import Search from '../components/Search';
@@ -169,24 +169,18 @@ export default function Icons() {
 				</div>
 			</div>
 
-			<div className='grid p-2'>
-				<div className='col-12 col-offset-0 md:col-6 md:col-offset-3'>
-					<div className='grid'>
-						<Search
-							autoCompleteState={valueSelected}
-							autoCompleteSetState={setValueSelected}
-							autoCompleteSuggetions={listSearch}
-							autoCompleteMethod={searchWithText}
-							autoCompleteSearchIcons={searchIcons}
-							dropdownCategories={iconCategories}
-							dropdownState={categorySelected}
-							dropdownSetState={setCategorySelected}
-							buttonSearch={searchIcons}
-							buttonClear={cleanFilters}
-						/>
-					</div>
-				</div>
-			</div>
+			<Search
+				autoCompleteState={valueSelected}
+				autoCompleteSetState={setValueSelected}
+				autoCompleteSuggetions={listSearch}
+				autoCompleteMethod={searchWithText}
+				autoCompleteSearchIcons={searchIcons}
+				dropdownCategories={iconCategories}
+				dropdownState={categorySelected}
+				dropdownSetState={setCategorySelected}
+				buttonSearch={searchIcons}
+				buttonClear={cleanFilters}
+			/>
 
 			<div className='grid'>
 				{valueSelected === null ? (
@@ -207,7 +201,8 @@ export default function Icons() {
 					))
 				)}
 				{listOfIcons.length !== 0 && (
-					<MoreIcons
+					<ButtonMore
+						title='Cargar más iconos...'
 						loading={loading}
 						onLoadingClick={onLoadingClick}
 					/>
@@ -217,14 +212,3 @@ export default function Icons() {
 		</div>
 	);
 }
-
-const MoreIcons = ({ loading, onLoadingClick }) => (
-	<div className='col-12 text-center mt-5'>
-		<Button
-			className='p-button-info p-button-outlined'
-			label='Cargar más iconos...'
-			loading={loading}
-			onClick={onLoadingClick}
-		/>
-	</div>
-);

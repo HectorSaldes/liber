@@ -6,6 +6,7 @@ import { illustrationsCategories } from '../assets/utils/Items';
 import SkeletonCard from '../components/SkeletonCard';
 import EmptySearch from '../components/EmptySearch';
 import IllustrationCard from '../components/IllustrationCard';
+import ButtonMore from '../components/ButtonMore';
 import ButtonUp from '../components/ButtonUp';
 
 export default function Illustrations() {
@@ -15,6 +16,7 @@ export default function Illustrations() {
 	const [categorySelected, setCategorySelected] = useState('');
 	const [listOfIllustrations, setListOfIllustrations] = useState([]);
 	const [scroll, setScroll] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	let pageSelectec = 1;
 
@@ -34,6 +36,15 @@ export default function Illustrations() {
 		};
 	}, []);
 
+	const onLoadingClick = () => {
+		setLoading(true);
+		pageSelectec++;
+		getPartialIllustrations();
+		setTimeout(() => {
+			setLoading(false);
+		}, 3000);
+	};
+
 	const searchWithText = async ({ query }) => {
 		const data = await querySearch(query);
 		let array = data.map((i) => i.name);
@@ -50,7 +61,7 @@ export default function Illustrations() {
 		document.body.removeChild(tag);
 	};
 
-	function toDataURL(url) {
+	async function toDataURL(url) {
 		return fetch(url)
 			.then((response) => response.blob())
 			.then((blob) => URL.createObjectURL(blob));
@@ -58,7 +69,7 @@ export default function Illustrations() {
 
 	const getIllustrationDownload = async (id) => {
 		try {
-      messages('info', 'Descargando...');
+			messages('info', 'Descargando...');
 			await IllustrationsService.getIllustration(id).then(({ data }) => {
 				console.log(data);
 				fileToDownload(data.preview2x.url, data.pretty_id);
@@ -117,6 +128,15 @@ export default function Illustrations() {
 		}
 	};
 
+	const getPartialIllustrations = async () => {
+		const newIllustrations = await IllustrationsService.searchIllustrations(
+			valueSelected,
+			pageSelectec,
+			categorySelected,
+		);
+		setListOfIllustrations([...listOfIllustrations, ...newIllustrations]);
+	};
+
 	const getAllIllustration = async () => {
 		const allIllus = await IllustrationsService.searchIllustrations(
 			valueSelected,
@@ -139,7 +159,7 @@ export default function Illustrations() {
 
 	return (
 		<div className='p-4'>
-			<Toast ref={toast}></Toast>
+			<Toast ref={toast} />
 			<div className='text-center'>
 				<div
 					className='font-bold'
@@ -154,24 +174,18 @@ export default function Illustrations() {
 				</div>
 			</div>
 
-			<div className='grid p-2'>
-				<div className='col-12 col-offset-0 md:col-6 md:col-offset-3'>
-					<div className='grid'>
-						<Search
-							autoCompleteState={valueSelected}
-							autoCompleteSetState={setValueSelected}
-							autoCompleteSuggetions={listSearch}
-							autoCompleteMethod={searchWithText}
-							autoCompleteSearchIcons={searchIllustration}
-							dropdownCategories={illustrationsCategories}
-							dropdownState={categorySelected}
-							dropdownSetState={setCategorySelected}
-							buttonSearch={searchIllustration}
-							buttonClear={cleanFilters}
-						/>
-					</div>
-				</div>
-			</div>
+			<Search
+				autoCompleteState={valueSelected}
+				autoCompleteSetState={setValueSelected}
+				autoCompleteSuggetions={listSearch}
+				autoCompleteMethod={searchWithText}
+				autoCompleteSearchIcons={searchIllustration}
+				dropdownCategories={illustrationsCategories}
+				dropdownState={categorySelected}
+				dropdownSetState={setCategorySelected}
+				buttonSearch={searchIllustration}
+				buttonClear={cleanFilters}
+			/>
 
 			<div className='grid'>
 				{valueSelected === null ? (
@@ -191,7 +205,13 @@ export default function Illustrations() {
 						/>
 					))
 				)}
-				{listOfIllustrations.length !== 0 && <></>}
+				{listOfIllustrations.length !== 0 && (
+					<ButtonMore
+						title='Cargar más ilustraciones...'
+						loading={loading}
+						onLoadingClick={onLoadingClick}
+					/>
+				)}
 			</div>
 			{scroll >= 200 && <ButtonUp goScrollUp={goScrollUp} />}
 		</div>

@@ -8,16 +8,31 @@ import Illustrations from './pages/Illustrations';
 import Error from './pages/Error';
 
 export default function App() {
-  return (
-    <MainBrowser>
-      <Menu />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/icons" element={<Icons />} />
-        <Route path="/images" element={<Images />} />
-        <Route path="/illustrations" element={<Illustrations />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </MainBrowser>
-  );
+	return (
+		<MainBrowser>
+			<Menu />
+			<Routes>
+				<Route
+					path='/'
+					element={<Home />}
+				/>
+				<Route
+					path='/icons'
+					element={<Icons />}
+				/>
+				<Route
+					path='/images'
+					element={<Images />}
+				/>
+				<Route
+					path='/illustrations'
+					element={<Illustrations />}
+				/>
+				<Route
+					path='*'
+					element={<Error />}
+				/>
+			</Routes>
+		</MainBrowser>
+	);
 }
