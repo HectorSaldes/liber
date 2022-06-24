@@ -15,7 +15,7 @@ class IllustrationsService {
 		if (category.length === 0) {
 			return axios
 				.get(
-					`${CORS_ENDPONIT}https://api-ouch.icons8.com/api/frontend/v1/illustrations?page=${page}&per_page=50&subject_pretty_ids=${query}`,
+					`${CORS_ENDPONIT}https://api-ouch.icons8.com/api/frontend/v1/illustrations?page=${page}&per_page=50&search=${query}`,
 					body,
 				)
 				.then(({ data: { illustrations } }) => illustrations)

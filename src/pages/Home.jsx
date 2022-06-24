@@ -37,6 +37,8 @@ export default function Home() {
 									style={{
 										objectFit: 'cover',
 									}}
+									width='100%'
+									height='auto'
 									alt={c.title}
 									src={c.image}
 								/>
