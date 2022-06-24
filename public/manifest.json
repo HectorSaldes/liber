@@ -1,14 +1,13 @@
 {
   "short_name": "LIBER",
   "name": "LIBER",
-  "start_url": "./index.html",
+  "start_url": "https://hectorsaldes.github.io/liber/",
   "description": "A web application to help you to download free resources",
   "display": "standalone",
   "theme_color": "#959DCB",
   "background_color": "#292929",
   "orientation": "portrait",
-  "scope": "/",
-  "related_applications": [],
+  "scope": "https://hectorsaldes.github.io/liber/",
   "prefer_related_applications": false,
   "icons": [
     {
@@ -25,7 +24,7 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }
