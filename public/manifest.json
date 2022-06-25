@@ -2,13 +2,6 @@
   "id" : "/",
   "short_name": "LIBER",
   "name": "LIBER",
-  "start_url": "/",
-  "description": "A web application to help you to download free resources",
-  "display": "standalone",
-  "theme_color": "#959DCB",
-  "background_color": "#292929",
-  "orientation": "portrait",
-  "prefer_related_applications": false,
   "icons": [
     {
       "src": "favicon.ico",
@@ -26,5 +19,12 @@
       "sizes": "512x512",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "start_url": ".",
+  "description": "A web application to help you to download free resources",
+  "display": "standalone",
+  "theme_color": "#959DCB",
+  "background_color": "#292929",
+  "orientation": "portrait",
+  "prefer_related_applications": false
 }
