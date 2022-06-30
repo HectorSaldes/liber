@@ -158,12 +158,12 @@ export default function Illustrations() {
       <div className='text-center'>
         <div
           className='font-bold'
-          style={{fontSize: '40px'}}>
+          style={{fontSize: '40px', marginTop: '50px', marginBottom: '50px'}}>
           Ilustraciones
         </div>
         <div
           className='text-justify sm:text-center'
-          style={{fontSize: '25px'}}>
+          style={{fontSize: '25px', marginBottom: '50px'}}>
           Aquí puedes decargar las ilustraciones necesarias para incorporarlas
           en tus presentaciones
         </div>

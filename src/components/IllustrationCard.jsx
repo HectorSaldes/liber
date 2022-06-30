@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
+import '../assets/css/cardStyle.css';
 
 export default function IllustrationCard({ payload, getIllustrationDownload }) {
 	const {
@@ -27,12 +28,13 @@ export default function IllustrationCard({ payload, getIllustrationDownload }) {
 	return (
 		<div
 			className='col-12 sm:col-6 lg:col-4'
+			data-aos="fade-up"
 			key={id}>
 			<Card
 				style={{
 					backgroundColor: 'var(--gray-600)',
 				}}
-				className='w-full'
+				className='w-full iconCards'
 				header={header}
 				key={id}
 				footer={
