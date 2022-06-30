@@ -149,12 +149,12 @@ export default function Images() {
       <div className='text-center'>
         <div
           className='font-bold'
-          style={{fontSize: '40px'}}>
+          style={{fontSize: '40px', marginTop: '50px', marginBottom: '50px'}}>
           Imágenes
         </div>
         <div
           className='text-justify sm:text-center'
-          style={{fontSize: '25px'}}>
+          style={{fontSize: '25px', marginBottom: '50px'}}>
           Aquí podrás guardar tus imágenes en internet para poder usarlas en
           cualquier lado en formato PNG, JPG o JPEG
         </div>

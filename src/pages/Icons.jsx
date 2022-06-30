@@ -158,12 +158,12 @@ export default function Icons() {
 			<div className='text-center'>
 				<div
 					className='font-bold'
-					style={{ fontSize: '40px' }}>
+					style={{ fontSize: '40px', marginTop:'50px', marginBottom: '50px' }}>
 					Iconos
 				</div>
 				<div
 					className='text-justify sm:text-center'
-					style={{ fontSize: '25px' }}>
+					style={{ fontSize: '25px', marginBottom: '50px' }}>
 					Aquí puedes decargar los iconos que sean necesarios, comienza usando
 					el campo de texto
 				</div>

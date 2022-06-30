@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import '../assets/css/cardStyle.css';
 
 export default function IconCard({ payload, getIconToDownload }) {
 	const { name, commonName, platform, id } = payload;
@@ -18,8 +19,10 @@ export default function IconCard({ payload, getIconToDownload }) {
 	return (
 		<div
 			className='col-6 sm:col-4 md:col-2'
+			data-aos="fade-up"
 			key={id}>
 			<Card
+				className='iconCards'
 				style={{
 					backgroundColor: 'var(--gray-600)',
 				}}
