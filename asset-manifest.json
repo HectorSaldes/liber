@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/liber/static/css/main.844d1ceb.css",
-    "main.js": "/liber/static/js/main.07876af6.js",
+    "main.css": "/liber/static/css/main.12f372da.css",
+    "main.js": "/liber/static/js/main.ff371ea2.js",
     "static/js/787.cf17099b.chunk.js": "/liber/static/js/787.cf17099b.chunk.js",
     "static/media/primeicons.svg": "/liber/static/media/primeicons.c6e2053303524e39530c.svg",
     "static/media/primeicons.eot": "/liber/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
@@ -17,12 +17,12 @@
     "static/media/LIBER.svg": "/liber/static/media/LIBER.9c39b1b82ed5ed77efb1b0b11b548252.svg",
     "index.html": "/liber/index.html",
     "static/media/emptyIcons.svg": "/liber/static/media/emptyIcons.e778903124d3fd73ae36357539fc6e99.svg",
-    "main.844d1ceb.css.map": "/liber/static/css/main.844d1ceb.css.map",
-    "main.07876af6.js.map": "/liber/static/js/main.07876af6.js.map",
+    "main.12f372da.css.map": "/liber/static/css/main.12f372da.css.map",
+    "main.ff371ea2.js.map": "/liber/static/js/main.ff371ea2.js.map",
     "787.cf17099b.chunk.js.map": "/liber/static/js/787.cf17099b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.844d1ceb.css",
-    "static/js/main.07876af6.js"
+    "static/css/main.12f372da.css",
+    "static/js/main.ff371ea2.js"
   ]
 }
