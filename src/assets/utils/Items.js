@@ -3,27 +3,27 @@ export const myCards = [
 		id: 1,
 		title: 'Heroku',
 		image:
-			'https://alejandrojs.files.wordpress.com/2017/07/heroku-og-cad174838a49b266550809e29026ec9bc18e056dae8f9cf523ea4237379691f9.png',
+			'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/912/6bd70fcf-5851-4b70-b8d6-18b1d9eccc7f.png',
 		text: 'Se utiliza Heroku para habilitar la petición a las APIs y así evitar problemas de CORS dentro de la aplicación, por lo que existen posibilidades de que la aplicación al principio tarde en ejecutarse.',
 	},
 	{
 		id: 2,
 		title: 'Iconos8',
 		image:
-			'https://media-exp1.licdn.com/dms/image/C4E1BAQFePxrnbnWyRA/company-background_10000/0/1594136569467?e=2147483647&v=beta&t=L1O4I8OE1dssPZplUbQh-DslbnpXBER625-ZIYyF22k',
+			'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/146/0ca9e5ac-c4a5-41c3-abfb-afc7dcc78edf.jpeg',
 		text: 'Los iconos que se muestran y descargan son directamente de los iconos de Icon8 en su versión premium SVG, solamente es posible descargar ese formato.',
 	},
 	{
 		id: 3,
 		title: 'Imágenes AWS',
-		image: 'https://i.ytimg.com/vi/ciQ83A20mHM/maxresdefault.jpg',
+		image: 'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/514/003ffd7d-c018-41cc-8271-5c29d1ce8a87.jpg',
 		text: 'Las imágenes que se guardan son almacenadas en el servicio de Amazon S3, pero con la limitación de que solamente están activas en un mes.',
 	},
 	{
 		id: 4,
 		title: 'Ilustraciones',
 		image:
-			'https://maxst.icons8.com/vue-static/landings/page-index/products/preview/link-preview/ouch/ouch1.png',
+			'https://s3.aws-k8s.generated.photos/ai-generated-photos/upscaler-uploads/uploads/88/7724419b-1dac-4931-abb8-21ed9c9136bb.png',
 		text: 'Las ilustraciones mostradas son descargadas en formato PNG, en la mejor calidad posible para ser utilizadas en presentaciones, infografías o cualquier otro medio.',
 	},
 ];
