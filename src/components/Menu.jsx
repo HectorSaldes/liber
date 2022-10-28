@@ -9,22 +9,32 @@ export default function Menu() {
 
 	const items = [
 		{
-			label: 'Inicio',
+			label: 'Home',
 			icon: 'pi pi-fw pi-home',
 			command: () => navigate('/'),
 		},
 		{
-			label: 'Iconos',
+			label: 'Icons',
 			icon: 'pi pi-fw pi-box',
-			command: () => navigate('/icons'),
+      items: [
+        {
+          label: 'Search by word',
+          icon: 'pi pi-fw pi-box',
+          command: () => navigate('/icons'),
+        },{
+          label: 'Search by ID',
+          icon: 'pi pi-fw pi-box',
+          command: () => navigate('/icons/by-id'),
+        }
+      ]
 		},
 		{
-			label: 'Ilustraciones',
+			label: 'Illustrations',
 			icon: 'pi pi-fw pi-image',
 			command: () => navigate('/illustrations'),
 		},
 		{
-			label: 'Imágenes',
+			label: 'Images',
 			icon: 'pi pi-fw pi-camera',
 			command: () => navigate('/images'),
 		},
@@ -33,14 +43,7 @@ export default function Menu() {
 	return (
 		<Menubar
 			model={items}
-			start={
-				<img
-					className='mr-5'
-					width='100'
-					src={LIBER}
-					alt='LOGO LIBER'
-				/>
-			}
+			start={<img className='mr-5' width='100' src={LIBER} alt='LOGO LIBER'/>}
 			end={
 				<a
 					href='https://hectorsaldes.netlify.app/'
@@ -48,8 +51,8 @@ export default function Menu() {
 					rel='noreferrer'
 					style={{ textDecoration: 'none' }}>
 					<Button
-						label='¡Dame esos 5! 👋🏼'
-						className='p-button-info p-button-outlined'
+						label='¡Give five! 👋🏼'
+						className='p-button-warning p-button-outlined'
 					/>
 				</a>
 			}

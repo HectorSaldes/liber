@@ -22,7 +22,7 @@ export default function Search({
 					<AutoComplete
 						inputId='inputSearch'
 						className='col-12 md:col-6'
-						placeholder='Busca aquí...'
+						placeholder='Search here'
 						value={autoCompleteState}
 						autoFocus
 						suggestions={autoCompleteSuggetions}
@@ -38,14 +38,14 @@ export default function Search({
 							style={{ width: '100%' }}
 							options={dropdownCategories}
 							value={dropdownState}
-							emptyMessage='No hay opciones'
-							placeholder='Selecciona una categoría'
+							emptyMessage='No options'
+							placeholder='Select a category'
 							onChange={(e) => dropdownSetState(e.value)}
 						/>
 					</div>
 					<div className='col-12 md:col-6'>
 						<Button
-							label='Buscar'
+							label='Search'
 							icon='pi pi-search'
 							className='p-button-info p-button-outlined'
 							onClick={() => buttonSearch('Enter')}
@@ -56,7 +56,7 @@ export default function Search({
 					</div>
 					<div className='col-12 md:col-6'>
 						<Button
-							label='Borrar filtros'
+							label='Clear filters'
 							className='p-button-danger p-button-outlined'
 							onClick={() => buttonClear()}
 							style={{

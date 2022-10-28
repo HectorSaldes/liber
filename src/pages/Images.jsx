@@ -7,6 +7,7 @@ import {ConfirmDialog, confirmDialog} from 'primereact/confirmdialog';
 import React, {useState, useEffect, useRef} from 'react';
 import ImagesService from '../service/ImagesService';
 import LocalStorageService from '../service/LocalStorageService';
+import Title from "../components/Title";
 
 export default function Images() {
   const toast = useRef(null);
@@ -22,7 +23,7 @@ export default function Images() {
       .then(({data}) => data)
       .catch((err) => {
         console.error(err);
-        messages('error', 'Falló', err);
+        messages('error', 'Fail to upload image', err);
       });
   };
 
@@ -36,70 +37,40 @@ export default function Images() {
       let imageTaken = e.files[0];
       if (e.xhr.status === 201) {
         if (batch.latency === 0) {
-          messages('info', 'Subiendo imagen', 'Esto tarda unos segundos');
+          messages('info', 'Uploading image', 'This can take a few seconds');
           let data = new FormData();
           data.append('image', imageTaken, imageTaken.name);
           let dataImage = await getImageUploaded(data, batch.id);
           if (LocalStorageService.saveData(myLocalStorage, dataImage)) {
             setLiberImages(LocalStorageService.getAllData(myLocalStorage));
-            messages('success', 'Imagen subida', 'Tu imagen se guardo');
-          } else {
-            messages('error', 'Imagen no subida', 'Tu imagen no se guardo');
-          }
+            messages('success', 'Image uploaded', 'Your image has been saved');
+          } else messages('error', 'Image not uploaded', 'Your image has not been saved');
         }
-      } else {
-        messages('error', 'Problemas en el servidor', 'Intentalo más tarde');
-      }
-    } else {
-      messages(
-        'error',
-        'Imagen no válida',
-        'Este formato de imagen no se admite, intenta con otra',
-      );
-    }
+      } else messages('error', 'Problems with the server', 'Try again later');
+    } else messages('error', 'Image not valid', 'This kind of format is not valid',);
   };
 
-  const footer = `En total existen ${
-    liberImages ? liberImages.length : 0
-  } imágenes.`;
+  const footer = `There are ${liberImages ? liberImages.length : 0} images.`;
 
   const name = ({filename}) => <span>{filename}</span>;
 
-  const dimensions = ({source: {height, width}}) => (
-    <span>{`${height} x ${width}`}</span>
-  );
+  const dimensions = ({source: {height, width}}) => (<span>{`${height} x ${width}`}</span>);
 
   const date = ({date}) => <span>{`${date}`}</span>;
 
-  const image = ({source: {url}}) => (
-    <img
-      style={{width: '100px'}}
-      alt={url}
-      src={url}
-    />
-  );
+  const image = ({source: {url}}) => (<img style={{width: '100px'}} alt={url} src={url}/>);
 
   const actions = ({id, source: {url}}) => (
     <div>
-      <a
-        href={url}
-        target='_blank'
-        rel='noreferrer'>
-        <Button
-          icon='pi pi-arrow-up-right'
-          className='p-button-rounded p-button-warning'
-        />
+      <a href={url} target='_blank' rel='noreferrer'>
+        <Button icon='pi pi-arrow-up-right'
+                className='p-button-rounded p-button-warning'/>
       </a>
-      <Button
-        icon='pi pi-trash'
-        className='p-button-rounded p-button-danger sm:mx-2'
-        onClick={() => confirm(id)}
-      />
-      <Button
-        icon='pi pi-copy'
-        className='p-button-rounded p-button-info'
-        onClick={() => copyToClipboard(url)}
-      />
+      <Button icon='pi pi-trash'
+              className='p-button-rounded p-button-danger sm:mx-2'
+              onClick={() => confirm(id)}/>
+      <Button icon='pi pi-copy' className='p-button-rounded p-button-info'
+              onClick={() => copyToClipboard(url)}/>
     </div>
   );
 
@@ -108,27 +79,27 @@ export default function Images() {
       navigator.clipboard.writeText(url);
       messages(
         'info',
-        'URL copiada',
-        'Se ha copiado al portapapeles el enlace',
+        'URL copied',
+        'We hace copied the URL to your clipboard',
       );
     } catch (error) {
-      messages('error', 'URL no copiada', 'No se admite esta función');
+      messages('error', 'URL not copied', 'This browser does not support');
     }
   };
 
   const accept = (id) => {
     if (LocalStorageService.deleteData(myLocalStorage, id)) {
       setLiberImages(LocalStorageService.getAllData(myLocalStorage));
-      messages('success', 'Imagen eliminada', 'Se eliminó la imagen');
+      messages('success', 'Image deleted', 'Delete successfull');
     } else {
-      messages('error', 'Ocurrío un error', 'La imagen no se eliminó');
+      messages('error', 'There was an error', 'Delete unsuccessful');
     }
   };
 
   const confirm = (id) => {
     confirmDialog({
-      header: 'Eliminación',
-      message: '¿Deseas eliminar esta imagen para siempre?',
+      header: 'Delete',
+      message: 'Do you want to delete this file permanently?',
       icon: 'pi pi-info-circle',
       acceptClassName: 'p-button-danger',
       accept: () => accept(id),
@@ -138,77 +109,47 @@ export default function Images() {
     });
   };
 
-  const messages = (severity, summary, detail, sticky = false) => {
-    toast.current.show({severity, summary, detail, life: 3000, sticky});
-  };
+  const messages = (severity, summary, detail, sticky = false) => ( toast.current.show({severity, summary, detail, life: 3000, sticky}))
 
   return (
     <div className='p-4'>
       <Toast ref={toast}></Toast>
       <ConfirmDialog/>
       <div className='text-center'>
-        <div
-          className='font-bold'
-          style={{fontSize: '40px', marginTop: '50px', marginBottom: '50px'}}>
-          Imágenes
-        </div>
-        <div
-          className='text-justify sm:text-center'
-          style={{fontSize: '25px', marginBottom: '50px'}}>
-          Aquí podrás guardar tus imágenes en internet para poder usarlas en
-          cualquier lado en formato PNG, JPG o JPEG
-        </div>
+        <Title title='Images'
+               description='Here you can upload you images on net and use them on a URL in format PNG, JPG, JPEG'/>
         <FileUpload
           name='File'
           url='https://allowingcors.herokuapp.com/https://api-upscaler-origin.icons8.com/api/frontend/v1/batches'
           onUpload={onUpload}
+          onBeforeSend={(e) => {
+            e.xhr.setRequestHeader('x-user-id', '63470d772cf095526d35ae49');
+          }}
           accept='.png, .jpg, .jpeg'
           maxFileSize={5000000}
-          chooseLabel='Añadir imagen'
-          uploadLabel='Subir imagen'
-          cancelLabel='Cancelar'
-          emptyTemplate={
-            <p className='m-0'>Solamente puedes subir una imagen a la vez</p>
-          }
+          chooseLabel='Add image'
+          uploadLabel='Upload image'
+          cancelLabel='Cancel'
+          emptyTemplate={<p className='m-0'>You can only upload one image at a
+            time</p>}
         />
 
         <div className='col'>
           <div className='card'>
             <DataTable
               value={liberImages}
-              header={
-                <div
-                  style={{
-                    color: 'var(--yellow-50)',
-                    fontSize: '20px',
-                  }}>
-                  Tabla de imágenes guardadas localmente
-                </div>
-              }
+              header={<div
+                style={{color: 'var(--surface-900)', fontSize: '20px'}}>Table of
+                images saved locally</div>}
               footer={footer}
               responsiveLayout='stack'
               paginator
               rows={5}>
-              <Column
-                header='Nombre'
-                body={name}
-              />
-              <Column
-                header='Fecha'
-                body={date}
-              />
-              <Column
-                header='Dimensiones'
-                body={dimensions}
-              />
-              <Column
-                header='Imagen'
-                body={image}
-              />
-              <Column
-                header='Acciones'
-                body={actions}
-              />
+              <Column header='Name' body={name}/>
+              <Column header='Date' body={date}/>
+              <Column header='Dimens' body={dimensions}/>
+              <Column header='Image' body={image}/>
+              <Column header='Acctions' body={actions}/>
             </DataTable>
           </div>
         </div>

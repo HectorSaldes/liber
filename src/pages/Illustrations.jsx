@@ -1,20 +1,21 @@
-import {Toast} from 'primereact/toast';
-import Search from '../components/Search';
-import React, {useState, useRef, useEffect} from 'react';
-import IllustrationsService from '../service/IllustrationsService';
-import {handleScroll} from '../service/UtilService';
-import {illustrationsCategories} from '../assets/utils/Items';
-import SkeletonCard from '../components/SkeletonCard';
-import EmptySearch from '../components/EmptySearch';
-import IllustrationCard from '../components/IllustrationCard';
-import ButtonMore from '../components/ButtonMore';
-import ButtonUp from '../components/ButtonUp';
+import { Toast } from "primereact/toast";
+import Search from "../components/Search";
+import React, { useState, useRef, useEffect } from "react";
+import IllustrationsService from "../service/IllustrationsService";
+import { handleScroll } from "../service/UtilService";
+import { illustrationsCategories } from "../assets/utils/Items";
+import SkeletonCard from "../components/SkeletonCard";
+import EmptySearch from "../components/EmptySearch";
+import IllustrationCard from "../components/IllustrationCard";
+import ButtonMore from "../components/ButtonMore";
+import ButtonUp from "../components/ButtonUp";
+import Title from "../components/Title";
 
 export default function Illustrations() {
   const toast = useRef(null);
   const [valueSelected, setValueSelected] = useState(null);
   const [listSearch, setListSearch] = useState([]);
-  const [categorySelected, setCategorySelected] = useState('');
+  const [categorySelected, setCategorySelected] = useState("");
   const [listOfIllustrations, setListOfIllustrations] = useState([]);
   const [scroll, setScroll] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -22,13 +23,13 @@ export default function Illustrations() {
 
   const goScrollUp = () => {
     window.scrollTo(0, 0);
-    document.querySelector('#inputSearch').focus();
+    document.querySelector("#inputSearch").focus();
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', () => setScroll(handleScroll), {passive: true});
+    window.addEventListener("scroll", () => setScroll(handleScroll), { passive: true });
     return () => {
-      window.removeEventListener('scroll', () => setScroll(handleScroll));
+      window.removeEventListener("scroll", () => setScroll(handleScroll));
     };
   }, []);
 
@@ -41,17 +42,17 @@ export default function Illustrations() {
     }, 3000);
   };
 
-  const searchWithText = async ({query}) => {
+  const searchWithText = async ({ query }) => {
     const data = await querySearch(query);
     let array = data.map((i) => i.name);
     setListSearch(array);
   };
 
   const fileToDownload = async (url, pretty_id) => {
-    const tag = document.createElement('a');
+    const tag = document.createElement("a");
     tag.href = await toDataURL(url);
     tag.download = `${pretty_id}.png`;
-    tag.setAttribute('target', '_blank');
+    tag.setAttribute("target", "_blank");
     document.body.appendChild(tag);
     tag.click();
     document.body.removeChild(tag);
@@ -65,16 +66,12 @@ export default function Illustrations() {
 
   const getIllustrationDownload = async (id) => {
     try {
-      messages('info', 'Descargando...');
-      await IllustrationsService.getIllustration(id).then(({data}) => {
-        fileToDownload(data.preview2x.url, data.pretty_id);
+      messages("info", "Downloading...");
+      await IllustrationsService.getIllustration(id).then(({ data }) => {
+        fileToDownload(data.resources.editor.url, data.id);
       });
     } catch (error) {
-      messages(
-        'error',
-        'Ocurrió un error al esperar al servidor',
-        'Vuelve a intentarlo un poco más tarde',
-      );
+      messages("error", "Something went wrong", "Please try again later.");
     }
   };
 
@@ -83,42 +80,42 @@ export default function Illustrations() {
       severity,
       summary,
       detail,
-      life: 3000,
+      life: 3000
     });
   };
 
   const querySearch = async (text) => {
     return IllustrationsService.autoComplete(text)
-      .then(({data}) => data)
+      .then(({ data }) => data)
       .catch(() => null);
   };
 
   const searchIllustration = async (e) => {
     try {
-      if (e === 'Enter') {
-        messages('info', 'Buscando...');
+      if (e === "Enter") {
+        messages("info", "Searching...");
         if (valueSelected) {
           let flag = await getAllIllustration();
           if (flag) cleanMessages();
           else
             messages(
-              'error',
-              'No se encontraron resultados',
-              'Prueba buscando otra cosa',
+              "error",
+              "There were no results for your search",
+              "Try another search."
             );
         } else {
           messages(
-            'error',
-            'Debes colocar alguna palabra',
-            'para empezar a buscar',
+            "error",
+            "You must enter a search",
+            "To search for illustrations."
           );
         }
       }
     } catch (error) {
       messages(
-        'error',
-        'Ocurrió un error al esperar al servidor',
-        'Vuelve a intentarlo un poco más tarde',
+        "error",
+        "Ocurrió un error al esperar al servidor",
+        "Vuelve a intentarlo un poco más tarde"
       );
     }
   };
@@ -127,7 +124,7 @@ export default function Illustrations() {
     const newIllustrations = await IllustrationsService.searchIllustrations(
       valueSelected,
       pageSelectec,
-      categorySelected,
+      categorySelected
     );
     setListOfIllustrations([...listOfIllustrations, ...newIllustrations]);
   };
@@ -136,7 +133,7 @@ export default function Illustrations() {
     const allIllus = await IllustrationsService.searchIllustrations(
       valueSelected,
       pageSelectec,
-      categorySelected,
+      categorySelected
     );
     setListOfIllustrations(allIllus);
     return allIllus.length !== 0;
@@ -145,28 +142,19 @@ export default function Illustrations() {
   const cleanFilters = () => {
     setListSearch([]);
     setValueSelected(null);
-    setCategorySelected('');
+    setCategorySelected("");
     setListOfIllustrations([]);
-    messages('success', 'Pantalla limpiada', 'repito, pantalla limpiada');
+    messages("success", "Pantalla limpiada", "repito, pantalla limpiada");
   };
 
   const cleanMessages = () => toast.current.clear();
 
   return (
-    <div className='p-4'>
-      <Toast ref={toast}/>
-      <div className='text-center'>
-        <div
-          className='font-bold'
-          style={{fontSize: '40px', marginTop: '50px', marginBottom: '50px'}}>
-          Ilustraciones
-        </div>
-        <div
-          className='text-justify sm:text-center'
-          style={{fontSize: '25px', marginBottom: '50px'}}>
-          Aquí puedes decargar las ilustraciones necesarias para incorporarlas
-          en tus presentaciones
-        </div>
+    <div className="p-4">
+      <Toast ref={toast} />
+      <div className="text-center">
+        <Title title="Illustrations"
+               description="Here you can download necessary illustration" />
       </div>
 
       <Search
@@ -182,14 +170,10 @@ export default function Illustrations() {
         buttonClear={cleanFilters}
       />
 
-      <div className='grid'>
+      <div className="grid">
         {valueSelected === null ? (
-          <EmptySearch
-            title='ilustraciones'
-            color='yellow'
-          />
-        ) : listOfIllustrations.length === 0 ? (
-          <SkeletonCard/>
+          <EmptySearch title="illustrations" color="yellow" />
+        ) : listOfIllustrations.length === 0 ? (<SkeletonCard />
         ) : (
           listOfIllustrations &&
           listOfIllustrations.map((i, key) => (
@@ -202,13 +186,13 @@ export default function Illustrations() {
         )}
         {listOfIllustrations.length !== 0 && (
           <ButtonMore
-            title='Cargar más ilustraciones...'
+            title="Cargar más ilustraciones..."
             loading={loading}
             onLoadingClick={onLoadingClick}
           />
         )}
       </div>
-      {scroll >= 200 && <ButtonUp goScrollUp={goScrollUp}/>}
+      {scroll >= 200 && <ButtonUp goScrollUp={goScrollUp} />}
     </div>
   );
 }
