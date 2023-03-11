@@ -140,7 +140,7 @@ export default function Images() {
 				/>
 				<FileUpload
 					name='File'
-					url='https://api-upscaler-origin.icons8.com/api/frontend/v1/batches'
+					url='https://cors-anywhere.herokuapp.com/corsdemo/https://api-upscaler-origin.icons8.com/api/frontend/v1/batches'
 					onUpload={onUpload}
 					onBeforeSend={(e) => {
 						e.xhr.setRequestHeader("x-user-id", "63470d772cf095526d35ae49");
