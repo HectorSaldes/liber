@@ -1,7 +1,7 @@
-import { AutoComplete } from 'primereact/autocomplete';
-import { Dropdown } from 'primereact/dropdown';
-import { Button } from 'primereact/button';
-import React from 'react';
+import { AutoComplete } from "primereact/autocomplete";
+import { Dropdown } from "primereact/dropdown";
+import { Button } from "primereact/button";
+import React from "react";
 
 export default function Search({
 	autoCompleteState,
@@ -30,12 +30,12 @@ export default function Search({
 						onChange={(e) => autoCompleteSetState(e.value)}
 						onKeyPress={({ key }) => autoCompleteSearchIcons(key)}
 						inputStyle={{
-							width: '100%',
+							width: "100%",
 						}}
 					/>
 					<div className='col-12 md:col-6'>
 						<Dropdown
-							style={{ width: '100%' }}
+							style={{ width: "100%" }}
 							options={dropdownCategories}
 							value={dropdownState}
 							emptyMessage='No options'
@@ -47,20 +47,21 @@ export default function Search({
 						<Button
 							label='Search'
 							icon='pi pi-search'
-							className='p-button-info p-button-outlined'
-							onClick={() => buttonSearch('Enter')}
+							className='p-button-info'
+							onClick={() => buttonSearch("Enter")}
 							style={{
-								width: '100%',
+								width: "100%",
 							}}
 						/>
 					</div>
 					<div className='col-12 md:col-6'>
 						<Button
 							label='Clear filters'
-							className='p-button-danger p-button-outlined'
+							icon='pi pi-times'
+							className='p-button-danger'
 							onClick={() => buttonClear()}
 							style={{
-								width: '100%',
+								width: "100%",
 							}}
 						/>
 					</div>
