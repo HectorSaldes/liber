@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 import axios from "axios";
 const BASE_URL = "https://api-upscaler-origin.icons8.com/api/frontend/v1/";
 const API = axios.create({ baseURL: BASE_URL });
