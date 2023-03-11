@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 class LocalStorageService {
 	initLocal(key) {
 		const isKey = localStorage.getItem(key);

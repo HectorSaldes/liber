@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
 const body = { nothing: "nothing" };
@@ -11,7 +12,7 @@ class IconsService {
 	}
 
 	getPlatformsStyles() {
-		return axios.get(`https://api.icons8.com/api/iconsets/v3/platforms`);
+		return axios.get("https://api.icons8.com/api/iconsets/v3/platforms");
 	}
 
 	searchById(id) {
