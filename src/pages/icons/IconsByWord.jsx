@@ -126,17 +126,20 @@ export default function IconsByWord() {
 	};
 
 	const convertSvgToFileAndDownload = (svg, name) => {
-		console.log(svg, name);
-		const decode = atob(svg);
-		const blob = new Blob([decode]);
-		const fileUrl = URL.createObjectURL(blob);
-		const link = document.createElement("a");
-		link.href = fileUrl;
-		link.setAttribute("download", `${name}.svg`);
-		document.body.appendChild(link);
-		link.click();
-		URL.revokeObjectURL(fileUrl);
-		link.parentNode.removeChild(link);
+		try {
+			const decode = atob(svg);
+			const blob = new Blob([decode]);
+			const fileUrl = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = fileUrl;
+			link.setAttribute("download", `${name}.svg`);
+			document.body.appendChild(link);
+			link.click();
+			URL.revokeObjectURL(fileUrl);
+			link.parentNode.removeChild(link);
+		} catch (error) {
+			messages("error", "This icons does not have SVG", "Try another one");
+		}
 	};
 
 	const getIconToDownload = async (id, commonName) => {
@@ -151,7 +154,7 @@ export default function IconsByWord() {
 
 	return (
 		<div className='p-4'>
-			<Toast ref={toast}></Toast>
+			<Toast ref={toast} />
 			<div className='text-center'>
 				<Title
 					title='Icons by word'
@@ -177,11 +180,10 @@ export default function IconsByWord() {
 				) : listOfIcons.length === 0 ? (
 					<SkeletonCard />
 				) : (
-					listOfIcons &&
-					listOfIcons.map((i, key) => (
+					listOfIcons?.map((i, key) => (
 						<IconCard
 							payload={i}
-							key={key}
+							key={(key+1)}
 							getIconToDownload={getIconToDownload}
 						/>
 					))

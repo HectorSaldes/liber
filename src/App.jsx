@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import IconsByWord from "./pages/icons/IconsByWord";
 import Images from "./pages/Images";
 import Illustrations from "./pages/Illustrations";
-import Error from "./pages/Error";
+// rome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+import  Error from "./pages/Error";
 import IconsById from "./pages/icons/IconsById";
 
 export default function App() {
