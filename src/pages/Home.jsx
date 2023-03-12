@@ -4,8 +4,8 @@ import { myCards } from "../assets/utils/Items";
 import "../assets/css/cardStyle.css";
 
 export default function Home() {
-	const CardHome = ({ c, index }) => (
-		<div className='col-12 sm:col-4' data-aos="fade-up" key={index}>
+	const CardHome = ({ c }) => (
+		<div className='col-12 sm:col-4' data-aos="fade-up">
 			<Card
 				style={{ background: "var(--yellow-100)" }}
 				className='mb-2 homeCards'
@@ -20,10 +20,7 @@ export default function Home() {
 					/>
 				}
 			>
-				<div
-					className='text-justify'
-					style={{ lineHeight: "1.5", fontSize: "20px", height: "200px" }}
-				>
+				<div className='text-justify'	style={{ lineHeight: "1.5", fontSize: "20px", height: "200px" }}>
 					{c.text}
 				</div>
 			</Card>
@@ -62,9 +59,7 @@ export default function Home() {
 				</div>
 			</div>
 			<div className='grid text-center'>
-				{myCards.map((c, index) => (
-					<CardHome c={c} index={index} />
-				))}
+				{myCards.map((c, index) => (	<CardHome key={(index+1)} c={c} />))}
 			</div>
 		</div>
 	);

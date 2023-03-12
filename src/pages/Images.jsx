@@ -8,6 +8,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ImagesService from "../service/ImagesService";
 import LocalStorageService from "../service/LocalStorageService";
 import Title from "../components/Title";
+import { URL_CORS } from "../service/UtilService";
+
 
 export default function Images() {
 	const toast = useRef(null);
@@ -22,7 +24,6 @@ export default function Images() {
 		return ImagesService.uploadImage(formData, batch)
 			.then(({ data }) => data)
 			.catch((err) => {
-				console.error(err);
 				messages("error", "Fail to upload image", err);
 			});
 	};
@@ -131,7 +132,7 @@ export default function Images() {
 
 	return (
 		<div className='p-4'>
-			<Toast ref={toast}></Toast>
+			<Toast ref={toast} />
 			<ConfirmDialog />
 			<div className='text-center'>
 				<Title
@@ -140,7 +141,7 @@ export default function Images() {
 				/>
 				<FileUpload
 					name='File'
-					url='https://cors-anywhere.herokuapp.com/corsdemo/https://api-upscaler-origin.icons8.com/api/frontend/v1/batches'
+					url={`${URL_CORS}https://api-upscaler-origin.icons8.com/api/frontend/v1/batches`}
 					onUpload={onUpload}
 					onBeforeSend={(e) => {
 						e.xhr.setRequestHeader("x-user-id", "63470d772cf095526d35ae49");
