@@ -1,11 +1,10 @@
-/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 import { URL_CORS } from "./UtilService";
 
 const BASE_URL = `${URL_CORS}https://api-upscaler-origin.icons8.com/api/frontend/v1/`;
 const API = axios.create({ baseURL: BASE_URL });
 
-class Icons8Service {
+class ImagesService {
 	uploadImage(formData, batch) {
 		const configHeaders = {
 			headers: {
@@ -18,4 +17,4 @@ class Icons8Service {
 	}
 }
 
-export default new Icons8Service();
+export default ImagesService;

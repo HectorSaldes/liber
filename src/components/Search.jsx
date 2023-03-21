@@ -35,6 +35,7 @@ export default function Search({
 					/>
 					<div className='col-12 md:col-6'>
 						<Dropdown
+							filter
 							style={{ width: "100%" }}
 							options={dropdownCategories}
 							value={dropdownState}

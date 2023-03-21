@@ -1,18 +1,12 @@
-/* eslint-disable import/no-anonymous-default-export */
-
 class LocalStorageService {
 	initLocal(key) {
 		const isKey = localStorage.getItem(key);
-		if (isKey) {
-			return JSON.parse(isKey);
-		}
+		if (isKey) return JSON.parse(isKey);
 		localStorage.setItem(key, JSON.stringify([]));
 		return [];
 	}
 
-	getAllData(key) {
-		return JSON.parse(localStorage.getItem(key));
-	}
+	getAllData(key) {return JSON.parse(localStorage.getItem(key));}
 
 	saveData(key, item) {
 		try {
@@ -40,4 +34,4 @@ class LocalStorageService {
 	}
 }
 
-export default new LocalStorageService();
+export default LocalStorageService;
