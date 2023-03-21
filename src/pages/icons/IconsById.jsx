@@ -121,7 +121,7 @@ const IconsById = () => {
 				<div className="mt-5 grid md:col-offset-4">
 					<Card
 						className="iconCards col-12 md:col-6"
-						style={{ backgroundColor: "var(--gray-600)" }}
+						style={{ backgroundColor: "var(--yellow-50)"  }}
 						key={1}
 						subTitle={iconFounded.name}
 						header={header}
@@ -129,7 +129,7 @@ const IconsById = () => {
 							<Button
 								label="SVG"
 								icon="pi pi-download"
-								className="col-12 p-button p-button-warning p-button-outlined"
+								className="col-12 p-button p-button-warning"
 								onClick={() => convertSvgToFileAndDownload()}
 							/>
 						}
