@@ -29,11 +29,6 @@ export default function Menu() {
 			],
 		},
 		{
-			label: "Illustrations",
-			icon: "pi pi-fw pi-image",
-			command: () => navigate("/illustrations"),
-		},
-		{
 			label: "Images",
 			icon: "pi pi-fw pi-camera",
 			command: () => navigate("/images"),
