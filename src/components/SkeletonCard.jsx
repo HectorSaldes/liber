@@ -11,5 +11,5 @@ export default function IconSkeleton() {
 		);
 		rows.push(data);
 	}
-	return <>{rows}</>;
+	return <div	className='grid'>{rows}</div>;
 }

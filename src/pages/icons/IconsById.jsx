@@ -61,7 +61,7 @@ const IconsById = () => {
 	);
 
 	return (
-		<div className="p-4">
+		<>
 			<Toast ref={toast} />
 			<div className="text-center">
 				<Title
@@ -142,7 +142,7 @@ const IconsById = () => {
 					<SkeletonCard />
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 

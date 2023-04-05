@@ -98,7 +98,7 @@ export default function Images() {
 		toast.current.show({ severity, summary, detail, life: 3000, sticky });
 
 	return (
-		<div className='p-4'>
+		<>
 			<Toast ref={toast} />
 			<ConfirmDialog />
 			<div className='text-center'>
@@ -139,6 +139,6 @@ export default function Images() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

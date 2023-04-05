@@ -1,4 +1,5 @@
 import {Toast} from "primereact/toast";
+import {parseIconToSvg} from "../../service/HandleIconsService";
 import React, {useState, useRef, useEffect} from "react";
 import IconsService from "../../service/IconsService";
 import SkeletonCard from "../../components/SkeletonCard";
@@ -20,20 +21,11 @@ export default function IconsByWord() {
     const [offsetSelected, setOffsetSelected] = useState(0);
     const [listOfIcons, setListOfIcons] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [scroll, setScroll] = useState(0);
 
     useEffect(() => {
         getPlatformStyles();
-        window.addEventListener("scroll", handleScroll, {passive: true});
-        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const handleScroll = () => setScroll(window.pageYOffset);
-
-    const goScrollUp = () => {
-        window.scrollTo(0, 0);
-        document.querySelector("#inputSearch").focus();
-    };
 
     const getPlatformStyles = async () => {
         const platformList = await _IconsService.getPlatforms()
@@ -87,7 +79,9 @@ export default function IconsByWord() {
                     else messages("error", "We did not fount results", "Try searching anything else",);
                 } else messages("error", "You must type a word", "For looking for");
             }
-        } catch (error) {messages("error", "There was an error", "Try do it again");}
+        } catch (error) {
+            messages("error", "There was an error", "Try do it again");
+        }
     };
 
     const getPartialcons = async () => {
@@ -106,27 +100,11 @@ export default function IconsByWord() {
         setTimeout(() => setLoading(false), 3000);
     };
 
-    const convertSvgToFileAndDownload = (svg, name) => {
-        try {
-            const decode = atob(svg);
-            const blob = new Blob([decode]);
-            const fileUrl = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = fileUrl;
-            link.setAttribute("download", `${name}.svg`);
-            document.body.appendChild(link);
-            link.click();
-            URL.revokeObjectURL(fileUrl);
-            link.parentNode.removeChild(link);
-        } catch (error) {
-            messages("error", "There is something wrong", "Try another one");
-        }
-    };
-
     const getIconToDownload = async (id, commonName) => {
         try {
             await _IconsService.getIcon(id).then(({data}) => {
-                convertSvgToFileAndDownload(data.icon.svg, commonName);
+                const {type, title, desc} = parseIconToSvg(data.icon, commonName);
+                messages(type, title, desc);
             });
         } catch (error) {
             messages("error", "There was an error", "Try do it again");
@@ -134,11 +112,9 @@ export default function IconsByWord() {
     };
 
     return (
-        <div className='p-4'>
+        <>
             <Toast ref={toast}/>
-            <div className='text-center'>
-                <Title title='Icons by word' description='Here you can download icons, whatever you want i think'/>
-            </div>
+            <Title title='Icons by word' description='Here you can download icons, whatever you want i think'/>
             <Search
                 autoCompleteState={valueSelected}
                 autoCompleteSetState={setValueSelected}
@@ -153,7 +129,7 @@ export default function IconsByWord() {
             />
             <div className='grid'>
                 {valueSelected === null ? (<EmptySearch title='icons' color='green'/>)
-                    : listOfIcons.length === 0 ? (<SkeletonCard/>)
+                    : !listOfIcons || listOfIcons.length === 0 ? (<SkeletonCard/>)
                         : (
                             listOfIcons?.map((i, key) => (
                                 <IconCard
@@ -161,12 +137,12 @@ export default function IconsByWord() {
                                     key={(key + 1)}
                                     getIconToDownload={getIconToDownload}
                                 />
-                    ))
-                )}
-                {listOfIcons.length !== 0
+                            ))
+                        )}
+                {listOfIcons.length !== 0 && listOfIcons
                     && (<ButtonMore title='Load more icons...' loading={loading} onLoadingClick={onLoadingClick}/>)}
             </div>
-            {scroll >= 200 && <ButtonUp goScrollUp={goScrollUp}/>}
-        </div>
+            <ButtonUp/>
+        </>
     );
 }
