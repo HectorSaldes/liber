@@ -14,6 +14,8 @@ const _IconsService = new IconsService();
 function IconsByCategory() {
     const toast = useRef(null);
 
+    const [totalCount, setTotalCount] = useState(0);
+
     const [grid, setGrid] = useState([]);
 
     const [generalSubcategories, setGeneralSubcategories] = useState([]);
@@ -54,6 +56,9 @@ function IconsByCategory() {
         // eslint-disable-next-line
     }, [valueGroups]);
 
+    useEffect(() => {
+        getTotalCount();
+    }, [grid]);
 
     const getServiceCategories = async () => {
         const categoriesAndSubcategories = await _IconsService.getCategoriesAndSubcategories()
@@ -86,13 +91,10 @@ function IconsByCategory() {
             messages("info", "Loading groups", "I repeat, loading groups");
             let itter = 0;
             let groups = await _IconsService.getIconCategories(valueCategories, valueSubcategories, itter++);
-            while (groups !== false){
-                let response = await _IconsService.getIconCategories(valueCategories, valueSubcategories, (itter++*100));
-                if(response){
-                    groups.subcategory = groups.subcategory.concat(response.subcategory)
-                }else{
-                    break;
-                }
+            while (groups !== false) {
+                let response = await _IconsService.getIconCategories(valueCategories, valueSubcategories, (itter++ * 100));
+                if (response) groups.subcategory = groups.subcategory.concat(response.subcategory)
+                else break;
                 itter++;
             }
             if (groups) {
@@ -113,6 +115,19 @@ function IconsByCategory() {
         else setGrid(originalGroups.subcategory)
     }
 
+
+    const getTotalCount = () => {
+        if (grid) {
+            let message = "";
+            let count = 0;
+            for (let group of grid) {
+                message += group.name+"\n";
+                count += group.icons.length;
+            }
+            setTotalCount(count);
+        }
+    };
+
     const clearFilters = () => {
         setValueCategories("");
         setValueSubcategories("");
@@ -128,19 +143,30 @@ function IconsByCategory() {
         toast.current.show({severity, summary, detail, life: 3000})
     };
 
-    const bulletDownload = async () => {
+    const bulletDownload = () => {
         messages("info", "Download started", "I repeat, download started");
-        await grid.forEach((group) => {
-            group.icons.forEach((icon) => {
-                _IconsService.getIcon(icon.id)
-                    .then(({data: {icon}}) => {
-                        let  { type, title, desc} = parseIconToSvg(icon, icon.commonName)
-                        messages(type, title, desc)
-                    })
-                    .catch((error) => console.error(error))
-            })
+        let promises = []
+        for (let group of grid) {
+            for (let icon of group.icons) {
+                promises.push(promiseDownload(icon, group.code));
+            }
+        }
+        Promise.all(promises).then(() => {
+            messages("success", "Download finished", "I repeat, download finished");
         })
-        messages("success", "Download finished", "I repeat, download finished");
+    }
+
+    const promiseDownload = (icon, group) => {
+        return new Promise((resolve, reject) => {
+            _IconsService.getIcon(icon.id)
+                .then(({data: {icon}}) => {
+                    parseIconToSvg(icon, icon.commonName, group)
+                    resolve(true);
+                })
+                .catch((error) => {
+                    reject(false);
+                });
+        });
     };
 
     const clearMessages = () => {
@@ -236,9 +262,10 @@ function IconsByCategory() {
                 {!grid ? (<EmptySearch title='icons'/>) : (
                     grid?.map((group, index) => (
                             <div key={index}>
-                                <h2>{group.name}</h2>
+                                <h2>{group.name} ({totalCount})</h2>
                                 <div className='grid'>
-                                    {group.icons.map((icon, index) => (<IconCard payload={icon} key={(index + 1)}  downloadble={false}/>))}
+                                    {group.icons.map((icon, index) => (
+                                        <IconCard payload={icon} key={(index + 1)} downloadble={false}/>))}
                                 </div>
                             </div>
                         )
