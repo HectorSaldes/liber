@@ -40,7 +40,7 @@ export default function Search({
 							options={dropdownCategories}
 							value={dropdownState}
 							emptyMessage='No options'
-							placeholder='Select a category'
+							placeholder='Select a platform'
 							onChange={(e) => dropdownSetState(e.value)}
 						/>
 					</div>

@@ -1,7 +1,7 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function Menu() {
 	const navigate = useNavigate();
@@ -25,6 +25,10 @@ export default function Menu() {
 					label: "Search by ID",
 					icon: "pi pi-fw pi-box",
 					command: () => navigate("/icons/by-id"),
+				},{
+					label: "Categories",
+					icon: "pi pi-fw pi-box",
+					command: () => navigate("/icons/by-category"),
 				},
 			],
 		},
@@ -38,24 +42,10 @@ export default function Menu() {
 	return (
 		<Menubar
 			model={items}
-			start={
-				<h1 className='mr-2 font-semibold' style={{ color: "black" }}>
-					LIBER
-				</h1>
-			}
+			start={<h1 className='mr-2 font-semibold' style={{ color: "black" }}>LIBER</h1>}
 			end={
-				<a
-					href='https://hectorsaldes.netlify.app/'
-					target='_blank'
-					rel='noreferrer'
-					style={{ textDecoration: "none" }}
-				>
-					<Button
-						text
-						raised
-						label='¡Give five! 👋🏼'
-						className='p-button-warning'
-					/>
+				<a href='https://hectorsaldes.netlify.app/' target='_blank' rel='noreferrer' style={{ textDecoration: "none" }}>
+					<Button text raised label='¡Give five! 👋🏼' className='p-button-warning'/>
 				</a>
 			}
 		/>

@@ -1,7 +1,7 @@
 import React from "react";
 import Empty from "../assets/svg/emptyIcons.svg";
 
-export default function EmptySearch({ title, color }) {
+export default function EmptySearch({ title }) {
 	return (
 		<div className='col-12 text-center'>
 			<h1>Begin looking for some {title}</h1>

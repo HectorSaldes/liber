@@ -8,6 +8,8 @@ import { Button } from "primereact/button";
 import IconsService from "../../service/IconsService";
 import { Card } from "primereact/card";
 
+const _IconsService = new IconsService();
+
 const IconsById = () => {
 	const [valueSelected, setValueSelected] = useState("");
 	const [iconFounded, setIconFounded] = useState(null);
@@ -33,7 +35,7 @@ const IconsById = () => {
 	const searchIcons = () => {
 		messages("info", "Loading data", "Plase wait");
 		if (valueSelected.length > 0) {
-			IconsService.getIcon(valueSelected)
+			_IconsService.getIcon(valueSelected)
 				.then((data) => {
 					setIconFounded(data.data.icon);
 					messages("success", "Icon found", "I repeat, icon found");
@@ -61,7 +63,7 @@ const IconsById = () => {
 	);
 
 	return (
-		<div className="p-4">
+		<>
 			<Toast ref={toast} />
 			<div className="text-center">
 				<Title
@@ -142,7 +144,7 @@ const IconsById = () => {
 					<SkeletonCard />
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
