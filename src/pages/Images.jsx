@@ -7,7 +7,7 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import React, { useState, useEffect, useRef } from "react";
 import ImagesService from "../service/ImagesService";
 import LocalStorageService from "../service/LocalStorageService";
-import Title from "../components/Title";
+// import Title from "../components/Title";
 import { URL_CORS } from "../service/UtilService";
 
 const _ImagesService = new ImagesService();
@@ -102,9 +102,9 @@ export default function Images() {
 			<Toast ref={toast} />
 			<ConfirmDialog />
 			<div className='text-center'>
-				<Title title='Images'
+				{/*<Title title='Images'
 					description='Here you can upload you images on net and use them on a URL in format PNG, JPG, JPEG. NOTICE that the images are saved temporaly around 30 days.'
-				/>
+				/>*/}
 				<FileUpload
 					name='File'
 					url={`${URL_CORS}https://api-upscaler-origin.icons8.com/api/frontend/v1/batches`}

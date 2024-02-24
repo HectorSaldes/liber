@@ -6,7 +6,7 @@
 
 <div align="center">
   <br>
-  <img alt="Open Sauced" src="./src/assets/img/Logo.png" width="200px">
+  <img alt="Open Sauced" src="./public/logo512.png" width="200px">
   <h1> 🚀 <strong>LIBER</strong> 🚀 </h1>
   <strong>An Application web to help you to download and save icons, illustrations and images (for now)</strong>
 </div>
@@ -64,4 +64,4 @@ Of all this, we called it a leak security on Icons8
 [license-shield]: https://img.shields.io/github/license/HectorSaldes/liber.svg?style=for-the-badge&logo=wikidata&color=9D8189
 [license-url]: https://github.com/HectorSaldes/liber/blob/master/LICENSE.txt
 
-[liber-gif]: ./src/assets/img/Mockup.png
+[liber-gif]: public/Mockup.png

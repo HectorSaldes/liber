@@ -1,3 +1,4 @@
+/*
 import React, {useState, useRef, useEffect} from "react";
 import {parseIconToSvg} from "../../service/HandleIconsService";
 import IconCard from "../../components/IconCard";
@@ -276,4 +277,4 @@ function IconsByCategory() {
     );
 }
 
-export default IconsByCategory;
+export default IconsByCategory;*/

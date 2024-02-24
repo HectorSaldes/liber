@@ -1,5 +1,5 @@
 import React from "react";
-import Empty from "../assets/svg/emptyIcons.svg";
+import Empty from "../assets/svg/Empty.svg";
 
 export default function EmptySearch({ title }) {
 	return (

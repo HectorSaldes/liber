@@ -17,11 +17,9 @@ class IconsService {
         return allPlatforms;
     }
 
-    async searchIcons(query, platform = "all", offset = 0) {
-        return axios
-            .get(`${URL_CORS}https://search.icons8.com/api/iconsets/v5/search?term=${query}&amount=50&offset=${offset}&platform=${platform}&authors=all`)
-            .then(({data: {icons}}) => icons)
-            .catch(() => []);
+    async searchIcons(query, platform = "all", offset = 0, amount = 60) {
+        return axios.get(`${URL_CORS}https://search.icons8.com/api/iconsets/v5/search?term=${query}&amount=${amount}&offset=${offset}&platform=${platform}&authors=all`)
+
     }
 
     getIcon(id) {
