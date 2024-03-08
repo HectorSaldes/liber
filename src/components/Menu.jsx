@@ -1,61 +1,64 @@
-import React from 'react';
-import { Menubar } from 'primereact/menubar';
-import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
-import LIBER from '../assets/svg/LIBER.svg';
+import {Outlet, useNavigate} from "react-router-dom";
+import {Menubar} from "primereact/menubar";
+import {Button} from "primereact/button";
 
 export default function Menu() {
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	const items = [
-		{
-			label: 'Home',
-			icon: 'pi pi-fw pi-home',
-			command: () => navigate('/'),
-		},
-		{
-			label: 'Icons',
-			icon: 'pi pi-fw pi-box',
-      items: [
+    const items = [
         {
-          label: 'Search by word',
-          icon: 'pi pi-fw pi-box',
-          command: () => navigate('/icons'),
-        },{
-          label: 'Search by ID',
-          icon: 'pi pi-fw pi-box',
-          command: () => navigate('/icons/by-id'),
-        }
-      ]
-		},
-		{
-			label: 'Illustrations',
-			icon: 'pi pi-fw pi-image',
-			command: () => navigate('/illustrations'),
-		},
-		{
-			label: 'Images',
-			icon: 'pi pi-fw pi-camera',
-			command: () => navigate('/images'),
-		},
-	];
+            id: 1,
+            label: "Home",
+            icon: "pi pi-home",
+            command: () => navigate("/"),
+        },
+        {
+            id: 2,
+            label: "Icons",
+            icon: "pi pi-discord",
+            command: () => navigate("/icons"),
+        },
+      /*  {
 
-	return (
-		<Menubar
-			model={items}
-			start={<img className='mr-5' width='100' src={LIBER} alt='LOGO LIBER'/>}
-			end={
-				<a
-					href='https://hectorsaldes.netlify.app/'
-					target='_blank'
-					rel='noreferrer'
-					style={{ textDecoration: 'none' }}>
-					<Button
-						label='¡Give five! 👋🏼'
-						className='p-button-warning p-button-outlined'
-					/>
-				</a>
-			}
-		/>
-	);
+            label: "Icons",
+            icon: "pi pi-box",
+            items: [
+                {
+                    label: "Search by word",
+                    icon: "pi pi-box",
+                    command: () => navigate("/icons/by-word"),
+                },
+                {
+                    label: "Search by ID",
+                    icon: "pi pi-box",
+                    command: () => navigate("/icons/by-id"),
+                }, {
+                    label: "Categories",
+                    icon: "pi pi-box",
+                    command: () => navigate("/icons/by-category"),
+                },
+            ],
+        },
+        {
+            id: 3,
+            label: "Images",
+            icon: "pi pi-fw pi-camera",
+            command: () => navigate("/images"),
+        },*/
+    ];
+
+    const Start = () => (<div className='font-bold text-4xl lg:text-6xl'>LIBER</div>)
+
+    const End = () => (
+        <a href='https://hectorsaldes.netlify.app/' target='_blank' rel='noreferrer'>
+            <Button icon='pi pi-heart-fill' raised label='¡Give five!'/>
+        </a>
+    )
+
+    return (
+        <div>
+            <Menubar model={items} start={<Start/>} end={<End/>} style={{fontFamily: 'Space Grotesk'}}/>
+            <Outlet/>
+        </div>
+    );
 }
